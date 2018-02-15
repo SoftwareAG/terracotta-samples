@@ -22,15 +22,18 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Store3MultiStripe {
-  private static final URI SERVER_URI = URI.create("terracotta://localhost");
+  private static final String TERRACOTTA_URI_ENV = "TMS_DEFAULTURL";
+  private static final String DEFAULT_TSA_PORT = "9410";
   private static final String STORE_NAME = "mySampleStore03";
   private static final StringCellDefinition LAPTOP_ID_CELL = CellDefinition.defineString("laptopId");
   private static final BoolCellDefinition WORKS_FROM_HOME_CELL = CellDefinition.defineBool("worksFromHome");
   private static final String SERVER_RESOURCE = "primary-server-resource";
+  private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
+  private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
   public static void main(String[] args) throws StoreException {
 
-    try (DatasetManager datasetManager = DatasetManager.clustered(SERVER_URI).build()) {
+    try (DatasetManager datasetManager = DatasetManager.clustered(URI.create(SERVER_URI_STR)).build()) {
       // clean-up (delete) sample dataset from any previous run of this sample program
       datasetManager.destroyDataset(STORE_NAME);
 

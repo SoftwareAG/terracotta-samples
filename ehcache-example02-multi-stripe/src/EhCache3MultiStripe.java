@@ -23,8 +23,11 @@ public class EhCache3MultiStripe {
   private static final String CACHE_MANAGER_ALIAS = "clustered-cache-manager";
   private static final String CACHE_ALIAS = "clustered-cache";
   private static final String DEFAULT_TSA_PORT = "9410";
+  private static final String TERRACOTTA_URI_ENV = "TMS_DEFAULTURL";
   private static final String SERVER_RESOURCE = "primary-server-resource";
   private static final String SHARED_RESOURCE_POOL = "resource-pool-a";
+  private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
+  private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
   public static void main(String[] args) throws Exception {
     CacheManager cacheManager = createCacheManager();
@@ -32,8 +35,7 @@ public class EhCache3MultiStripe {
   }
 
   private static CacheManager createCacheManager() throws ConnectionException {
-    String serverPort = System.getProperty("tsa-port", DEFAULT_TSA_PORT);
-    final URI uri = URI.create("terracotta://localhost:" + serverPort + "/" + CACHE_MANAGER_ALIAS);
+    final URI uri = URI.create(SERVER_URI_STR + "/" + CACHE_MANAGER_ALIAS);
     final CacheManagerBuilder<PersistentCacheManager> clusteredCacheManagerBuilder = CacheManagerBuilder
         .newCacheManagerBuilder()
         .with(ClusteringServiceConfigurationBuilder

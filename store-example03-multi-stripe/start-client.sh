@@ -3,7 +3,11 @@
 # Use, reproduction, transfer, publication or disclosure is prohibited except as specifically provided for in your License Agreement with Software AG.
 
 WD=$(cd "$(dirname "$0")";pwd)
-TC_HOME=$(dirname "$(dirname "${WD}")")
+TC_HOME="$1"
+if [ -z "$TC_HOME" ]; then
+  echo "USAGE: $0 <TERRACOTTA_KIT_PATH>"
+  exit 1
+fi
 
 if [ ! -d "${JAVA_HOME}" ]; then
   echo "$0: the JAVA_HOME environment variable is not defined correctly"
