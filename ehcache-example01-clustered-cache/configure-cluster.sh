@@ -3,7 +3,13 @@
 # Use, reproduction, transfer, publication or disclosure is prohibited except as specifically provided for in your License Agreement with Software AG.
 
 WD=$(cd "$(dirname "$0")";pwd)
-TC_HOME=$(dirname "$(dirname "${WD}")")
+
+TC_HOME="$1"
+if [ -z "$TC_HOME" ]; then
+  echo "USAGE: $0 <TERRACOTTA_KIT_PATH>"
+  exit 1
+fi
+
 CLUSTER_TOOL_CONF="${TC_HOME}/tools/cluster-tool/conf"
 
 if [ ! -f "${CLUSTER_TOOL_CONF}/license.xml" ]; then
