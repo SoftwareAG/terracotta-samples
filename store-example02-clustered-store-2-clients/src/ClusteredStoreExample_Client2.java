@@ -35,8 +35,8 @@ public class ClusteredStoreExample_Client2 {
 
       DatasetWriterReader<Long> myDataset = rawDataset.writerReader();
 
-      myDataset.update(123L, write(FAVORITE_NUMBER_CELL, 22));
-      myDataset.update(123L, allOf(write(AGE_CELL, 35), write(FAVORITE_NUMBER_CELL, 22)));
+      myDataset.update(123L, write(FAVORITE_NUMBER_CELL.name(), 22));
+      myDataset.update(123L, allOf(write(AGE_CELL.name(), 35), write(FAVORITE_NUMBER_CELL.name(), 22)));
 
       myDataset.get(123L).ifPresent(rec ->
           System.out.println("Updated record with favorite number: " + rec.get(FAVORITE_NUMBER_CELL).get() + " and age: " + rec.get(AGE_CELL).get())

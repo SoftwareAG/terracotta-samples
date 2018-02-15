@@ -48,7 +48,7 @@ public class ClusteredStoreExample_Client1 {
             System.out.println("Stored and retrieved a record with favorite number: " + rec.get(FAVORITE_NUMBER_CELL).get())
         );
 
-        myDataset.update(123L, write(FAVORITE_NUMBER_CELL, 7));
+        myDataset.update(123L, write(FAVORITE_NUMBER_CELL.name(), 7));
         myDataset.get(123L).ifPresent(rec ->
             System.out.println("Updated record with favorite number: " + rec.get(FAVORITE_NUMBER_CELL).get())
         );
