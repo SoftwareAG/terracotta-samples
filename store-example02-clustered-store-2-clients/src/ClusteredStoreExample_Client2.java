@@ -18,21 +18,25 @@ import static com.terracottatech.store.UpdateOperation.allOf;
 import static com.terracottatech.store.UpdateOperation.write;
 
 public class ClusteredStoreExample_Client2 {
-  private static final URI SERVER_URI = URI.create("terracotta://localhost");
+  private static final String TERRACOTTA_URI_ENV = "TMS_DEFAULTURL";
+  private static final String DEFAULT_TSA_PORT = "9410";
   private static final String STORE_NAME = "mySampleStore01";
   private static final IntCellDefinition FAVORITE_NUMBER_CELL = CellDefinition.defineInt("favoriteNumber");
   private static final IntCellDefinition AGE_CELL = CellDefinition.defineInt("age");
+  private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
+  private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
+
 
   public static void main(String[] args) throws StoreException, IOException {
-    try (DatasetManager datasetManager = DatasetManager.clustered(SERVER_URI).build();
+    try (DatasetManager datasetManager = DatasetManager.clustered(URI.create(SERVER_URI_STR)).build();
          Dataset<Long> rawDataset = datasetManager.getDataset(STORE_NAME, Type.LONG)) {
 
       System.out.println("\n\nConnected to Dataset.\n");
 
       DatasetWriterReader<Long> myDataset = rawDataset.writerReader();
 
-      myDataset.update(123L, write(FAVORITE_NUMBER_CELL, 22));
-      myDataset.update(123L, allOf(write(AGE_CELL, 35), write(FAVORITE_NUMBER_CELL, 22)));
+      myDataset.update(123L, write(FAVORITE_NUMBER_CELL.name(), 22));
+      myDataset.update(123L, allOf(write(AGE_CELL.name(), 35), write(FAVORITE_NUMBER_CELL.name(), 22)));
 
       myDataset.get(123L).ifPresent(rec ->
           System.out.println("Updated record with favorite number: " + rec.get(FAVORITE_NUMBER_CELL).get() + " and age: " + rec.get(AGE_CELL).get())

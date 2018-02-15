@@ -3,7 +3,13 @@
 # Use, reproduction, transfer, publication or disclosure is prohibited except as specifically provided for in your License Agreement with Software AG.
 
 WD=$(cd "$(dirname "$0")" && pwd)
-TC_SERVER_HOME=$(dirname "$(dirname "${WD}")")/server
+TC_HOME="$1"
+if [ -z "$TC_HOME" ]; then
+  echo "USAGE: $0 <TERRACOTTA_KIT_PATH>"
+  exit 1
+fi
+
+TC_SERVER_HOME="$TC_HOME"/server
 
 if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
   echo "Modify the script to set TC_SERVER_HOME"
