@@ -4,7 +4,13 @@
 setlocal
 
 set WD=%~d0%~p0
-set TC_HOME=%WD%..\..
+set TC_HOME=%1
+if [%TC_HOME%] == [] (
+  echo "USAGE: %0 <TERRACOTTA_KIT_PATH>"
+  exit /b 1
+)
+set TC_HOME=%TC_HOME:"=%
+
 if exist "%TC_HOME%\server\bin\setenv.bat" (
   call "%TC_HOME%\server\bin\setenv.bat"
 )
