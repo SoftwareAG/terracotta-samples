@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2011-2018 Software AG, Darmstadt, Germany and/or Software AG USA Inc., Reston, VA, USA, and/or its subsidiaries and/or its affiliates and/or their licensors.
- * Use, reproduction, transfer, publication or disclosure is prohibited except as specifically provided for in your License Agreement with Software AG.
- */
-
 Demonstrates very basic operations with the Terracotta Store API with a distributed dataset.
 
 See src/ClusteredStoreExample_Client1.java and src/ClusteredStoreExample_Client2.java
