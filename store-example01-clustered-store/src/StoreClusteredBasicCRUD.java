@@ -16,7 +16,7 @@ import com.terracottatech.store.manager.DatasetManager;
 import java.net.URI;
 
 public class StoreClusteredBasicCRUD {
-  private static final String TERRACOTTA_URI_ENV = "TMS_DEFAULTURL";
+  private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
   private static final String DEFAULT_TSA_PORT = "9410";
   private static final String STORE_NAME = "mySampleStore01";
   private static final IntCellDefinition FAVORITE_NUMBER_CELL = CellDefinition.defineInt("favoriteNumber");

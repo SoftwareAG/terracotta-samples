@@ -22,7 +22,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Store3MultiStripe {
-  private static final String TERRACOTTA_URI_ENV = "TMS_DEFAULTURL";
+  private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
   private static final String DEFAULT_TSA_PORT = "9410";
   private static final String STORE_NAME = "mySampleStore03";
   private static final StringCellDefinition LAPTOP_ID_CELL = CellDefinition.defineString("laptopId");

@@ -22,7 +22,7 @@ import java.util.UUID;
 public class EhCache3ClusteredCache {
 
   private static final String DEFAULT_TSA_PORT = "9410";
-  private static final String TERRACOTTA_URI_ENV = "TMS_DEFAULTURL";
+  private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
   private static final String CACHE_MANAGER_ALIAS = "clustered-cache-manager";
   private static final String CACHE_ALIAS = "clustered-cache";
   private static final String SERVER_RESOURCE = "primary-server-resource";
