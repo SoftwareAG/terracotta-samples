@@ -2,9 +2,8 @@
 
 WD=$(cd "$(dirname "$0")" && pwd)
 
-TC_HOME="$1"
 if [ -z "$TC_HOME" ]; then
-  echo "USAGE: $0 <TERRACOTTA_KIT_PATH>"
+  echo "Please initialize the environment variable TC_HOME to the location of your extracted TerracottaDB kit"
   exit 1
 fi
 

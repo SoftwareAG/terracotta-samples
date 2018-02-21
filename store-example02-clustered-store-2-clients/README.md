@@ -1,27 +1,34 @@
 Demonstrates very basic operations with the Terracotta Store API with a distributed dataset.
+===========================================================================================
 
-See src/ClusteredStoreExample_Client1.java and src/ClusteredStoreExample_Client2.java
+Have a look at the code
+-----------------------
+The Java source code is located under [src](src/)
 
-NOTE: to successfully run this sample, JAVA_HOME must point to a Java 1.8 JDK installation
+Important note
+--------------
+Make sure you read and applied the instructions provided [at the top level](../)
 
-To Run:
+How to Run
+----------
+
 1. Start a server by running 
 
-        ./start-server.(bat|sh) <terracotta-kit-path>
+        ./start-server.(bat|sh)
         
 2. Configure the cluster by running 
         
-        ./configure-cluster.(bat|sh) <terracotta-kit-path>
+        ./configure-cluster.(bat|sh)
         
 3. Connect the first TC DB client to it by running 
 
-        ./start-client1.(bat|sh) <terracotta-kit-path> 
+        ./start-client1.(bat|sh)
     
     This client will create a dataset, add a record, modify the record and prompt you to run the second client.
     
 4. Start the second client by running 
 
-        ./start-client2.(bat|sh) <terracotta-kit-path> 
+        ./start-client2.(bat|sh)
     
     This client will apply further modifications to the existing record in the dataset
     

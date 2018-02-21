@@ -1,19 +1,25 @@
 Demonstrates basic usage of the Ehcache API with a distributed cache using multiple stripes.
+===========================================================================================
 
-See src/EhCache3MultiStripe.java
+Have a look at the code
+-----------------------
+The Java source code is located under [src](src/)
 
-NOTE: to successfully run this sample, JAVA_HOME must point to a Java 1.8 JDK installation
+Important note
+--------------
+Make sure you read and applied the instructions provided [at the top level](../)
 
-To Run:
+How to Run
+----------
 1. Start up two stripes (with one server each) by running 
 
-        ./start-stripe1.(bat|sh) <terracotta-kit-path>
-        ./start-stripe2.(bat|sh) <terracotta-kit-path>
+        ./start-stripe1.(bat|sh)
+        ./start-stripe2.(bat|sh)
         
 2. Configure the cluster by running 
 
-        ./configure-cluster.(bat|sh) <terracotta-kit-path>
+        ./configure-cluster.(bat|sh)
         
 3. Connect an ehcache3 client to the cluster by running 
 
-        ./start-client.(bat|sh) <terracotta-kit-path>
+        ./start-client.(bat|sh)

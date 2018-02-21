@@ -2,9 +2,9 @@
 setlocal
 
 set WD=%~d0%~p0
-set TC_HOME=%1
-if [%TC_HOME%] == [] (
-  echo "USAGE: %0 <TERRACOTTA_KIT_PATH>"
+if not exist "%TC_HOME%" (
+  echo Please initialize the environment variable TC_HOME to the location of your extracted TerracottaDB kit
+  pause
   exit /b 1
 )
 set TC_HOME=%TC_HOME:"=%

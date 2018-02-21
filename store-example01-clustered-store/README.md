@@ -1,18 +1,25 @@
 Demonstrates very basic operations with the Terracotta Store API with a distributed dataset.
+===========================================================================================
 
-See src/StoreClusteredBasicCRUD.java
+Have a look at the code
+-----------------------
+The Java source code is located under [src](src/)
 
-NOTE: to successfully run this sample, JAVA_HOME must point to a Java 1.8 JDK installation
+Important note
+--------------
+Make sure you read and applied the instructions provided [at the top level](../)
 
-To Run:
-1. Start a server by running 
+How to Run
+----------
 
-        ./start-server.(bat|sh) <terracotta-kit-path>
-        
-2. Configure the cluster by running 
+1. Start a server by running
 
-        ./configure-cluster.(bat|sh) <terracotta-kit-path>
-        
-3. Connect a TC DB client to the server by running 
-        
-        ./start-client.(bat|sh) <terracotta-kit-path>
+        ./start-server.(bat|sh)
+
+2. Configure the cluster by running
+
+        ./configure-cluster.(bat|sh)
+
+3. Connect an ehcache3 client to the server by running
+
+        ./start-client.(bat|sh)
