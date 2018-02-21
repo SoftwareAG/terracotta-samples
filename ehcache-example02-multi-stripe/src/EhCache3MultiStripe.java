@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2011-2018 Software AG, Darmstadt, Germany and/or Software AG USA Inc., Reston, VA, USA, and/or its subsidiaries and/or its affiliates and/or their licensors.
- * Use, reproduction, transfer, publication or disclosure is prohibited except as specifically provided for in your License Agreement with Software AG.
- */
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.PersistentCacheManager;
@@ -23,7 +19,7 @@ public class EhCache3MultiStripe {
   private static final String CACHE_MANAGER_ALIAS = "clustered-cache-manager";
   private static final String CACHE_ALIAS = "clustered-cache";
   private static final String DEFAULT_TSA_PORT = "9410";
-  private static final String TERRACOTTA_URI_ENV = "TMS_DEFAULTURL";
+  private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
   private static final String SERVER_RESOURCE = "primary-server-resource";
   private static final String SHARED_RESOURCE_POOL = "resource-pool-a";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;

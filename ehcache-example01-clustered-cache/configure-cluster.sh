@@ -1,12 +1,9 @@
 #!/bin/bash
-# Copyright (c) 2011-2018 Software AG, Darmstadt, Germany and/or Software AG USA Inc., Reston, VA, USA, and/or its subsidiaries and/or its affiliates and/or their licensors.
-# Use, reproduction, transfer, publication or disclosure is prohibited except as specifically provided for in your License Agreement with Software AG.
 
 WD=$(cd "$(dirname "$0")";pwd)
 
-TC_HOME="$1"
 if [ -z "$TC_HOME" ]; then
-  echo "USAGE: $0 <TERRACOTTA_KIT_PATH>"
+  echo "Please initialize the environment variable TC_HOME to the location of your extracted TerracottaDB kit"
   exit 1
 fi
 

@@ -1,3 +1,6 @@
 .DS_STORE
-
+server-data*/
+server-logs*/
+license.xml
 .idea/
+*.class
