@@ -1,0 +1,5 @@
+# Set the default behavior to LF, because checkstyle enforces it
+* text eol=lf
+
+# Set the line endings of bat files to CRLF
+*.bat eol=crlf

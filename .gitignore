@@ -4,3 +4,4 @@ server-logs*/
 license.xml
 .idea/
 *.class
+*.iml
