@@ -7,7 +7,7 @@ The Java source code is located under [src](src/)
 
 Important note
 --------------
-Make sure you read and applied the instructions provided [at the top level](../)
+Make sure you read and applied the instructions provided [at the top level](../../../)
 
 How to Run
 ----------
