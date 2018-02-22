@@ -2,7 +2,7 @@
 setlocal
 
 set WD=%~d0%~p0
-if not exist "%TC_HOME%" (
+if not defined TC_HOME (
   echo Please initialize the environment variable TC_HOME to the location of your extracted TerracottaDB kit
   pause
   exit /b 1
