@@ -28,8 +28,8 @@ Set the environment
 
 - On Windows, run in a command prompt :
 
-   ```set JAVA_HOME="C:\\....\java\jdk1.x.y_zz"```
-   ```set TC_HOME="C:\\path\to\extracted\TerracottaDBkit"```
+   ```set JAVA_HOME="C:\....\java\jdk1.x.y_zz"```
+   ```set TC_HOME="C:\path\to\extracted\TerracottaDBkit"```
 
 Make the license available to the cluster tool
 ----------------------------------------------
