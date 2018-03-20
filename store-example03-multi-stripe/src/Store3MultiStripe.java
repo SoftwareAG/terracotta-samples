@@ -23,6 +23,7 @@ public class Store3MultiStripe {
   private static final StringCellDefinition LAPTOP_ID_CELL = CellDefinition.defineString("laptopId");
   private static final BoolCellDefinition WORKS_FROM_HOME_CELL = CellDefinition.defineBool("worksFromHome");
   private static final String SERVER_RESOURCE = "primary-server-resource";
+  private static final String DISK_RESOURCE = "data";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
@@ -35,6 +36,7 @@ public class Store3MultiStripe {
       // create and use a dataset
       DatasetConfiguration datasetConfiguration = datasetManager.datasetConfiguration()
           .offheap(SERVER_RESOURCE)
+          .disk(DISK_RESOURCE)
           .index(LAPTOP_ID_CELL, IndexSettings.BTREE)
           .index(WORKS_FROM_HOME_CELL, IndexSettings.BTREE)
           .build();

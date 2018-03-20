@@ -21,6 +21,7 @@ public class ClusteredStoreExample_Client1 {
   private static final StringCellDefinition NAME_CELL = CellDefinition.defineString("name");
   private static final IntCellDefinition AGE_CELL = CellDefinition.defineInt("age");
   private static final String SERVER_RESOURCE = "primary-server-resource";
+  private static final String DISK_RESOURCE = "data";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
@@ -30,8 +31,8 @@ public class ClusteredStoreExample_Client1 {
       datasetManager.destroyDataset(STORE_NAME);
 
       // create and use a dataset
-      DatasetConfiguration offheapResource = datasetManager.datasetConfiguration().offheap(SERVER_RESOURCE).build();
-      datasetManager.newDataset(STORE_NAME, Type.LONG, offheapResource);
+      DatasetConfiguration offheapAndDiskResource = datasetManager.datasetConfiguration().offheap(SERVER_RESOURCE).disk(DISK_RESOURCE).build();
+      datasetManager.newDataset(STORE_NAME, Type.LONG, offheapAndDiskResource);
 
       try (Dataset<Long> rawDataset = datasetManager.getDataset(STORE_NAME, Type.LONG)) {
         System.out.println("\n\nDataset created.\n");
