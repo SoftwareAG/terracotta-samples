@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tc-config xmlns="http://www.terracotta.org/config"
+           xmlns:ohr="http://www.terracotta.org/config/offheap-resource"
+           xmlns:data="http://www.terracottatech.com/config/data-roots">
+  <plugins>
+    <config>
+      <ohr:offheap-resources>
+        <ohr:resource name="primary-server-resource" unit="MB">512</ohr:resource>
+      </ohr:offheap-resources>
+    </config>
+
+    <config>
+      <data:data-directories>
+        <data:directory name="data">server-data</data:directory>
+      </data:data-directories>
+    </config>
+  </plugins>
+
+  <servers>
+    <server host="localhost" name="server-1">
+      <logs>server-logs</logs>
+    </server>
+  </servers>
+</tc-config>
