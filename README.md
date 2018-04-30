@@ -11,7 +11,7 @@ What this document will help you accomplish:
 Prerequisites:
 --------------
 
-- Download the `Terracotta DB 10.2 kit` from http://www.terracotta.org/downloads/ and unzip it / untar it.
+- Download the `Standalone installation package for Terracotta DB` from http://www.terracotta.org/downloads/ and unzip it / untar it.
 
 - Have a Terracotta DB license file ready (you can get a trial license file from : http://www.terracotta.org/downloads/ )
 
