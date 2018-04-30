@@ -30,6 +30,8 @@ Set the environment
 How to Run
 ----------
 
+0. Make sure you have set TC_HOME and copied the license to ```TC_HOME/tools/cluster-tool/conf/``` , if not, please read the instructions provided [at the top level](../../../)
+
 1. Start a server by running
 
         ./start-server.(bat|sh)
