@@ -38,9 +38,9 @@ public class EhCache3ProgrammaticConfigExport {
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
   public static void main(String[] args) throws Exception {
-    CacheManager cacheManager = createCacheManager();
-    exportConfiguration(cacheManager);
-    cacheManager.close();
+    try (CacheManager cacheManager = createCacheManager()) {
+      exportConfiguration(cacheManager);
+    }
   }
 
   private static CacheManager createCacheManager() {

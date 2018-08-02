@@ -11,9 +11,9 @@ public class EhCache3ClusteredCache {
   private static final String CACHE_ALIAS = "clustered-cache-03";
 
   public static void main(String[] args) throws Exception {
-    CacheManager cacheManager = createCacheManager();
-    startCacheOperations(cacheManager);
-    cacheManager.close();
+    try (CacheManager cacheManager = createCacheManager()) {
+      startCacheOperations(cacheManager);
+    }
   }
 
   private static CacheManager createCacheManager() {
@@ -34,7 +34,6 @@ public class EhCache3ClusteredCache {
 
       System.out.println("" + (i + 1) + ". Putting key : " + key + " with value : " + value);
       cache.put(key, value);
-      Thread.sleep(1000);
     }
   }
 }

@@ -26,8 +26,9 @@ public class EhCache3MultiStripe {
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
   public static void main(String[] args) throws Exception {
-    CacheManager cacheManager = createCacheManager();
-    startCacheOperations(cacheManager);
+    try (CacheManager cacheManager = createCacheManager()) {
+      startCacheOperations(cacheManager);
+    }
   }
 
   private static CacheManager createCacheManager() throws ConnectionException {
@@ -65,9 +66,6 @@ public class EhCache3MultiStripe {
 
       System.out.println("" + (i + 1) + ". Putting key : " + key + " with value : " + value);
       cache.put(key, value);
-      Thread.sleep(1000);
     }
-
-    cacheManager.close();
   }
 }
