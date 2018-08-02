@@ -15,7 +15,8 @@
 @REM   limitations under the License.
 
 @echo off
-setlocal
+@REM : EnableExtensions for usage of ~
+setlocal EnableExtensions
 
 set WD=%~d0%~p0
 if not defined TC_HOME (

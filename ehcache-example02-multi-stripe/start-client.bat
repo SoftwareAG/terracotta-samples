@@ -15,9 +15,13 @@
 @REM   limitations under the License.
 
 @echo off
-setlocal
+@REM : EnableExtensions for usage of ~ ; EnableDelayedExpansion for usage of !!
+setlocal EnableExtensions EnableDelayedExpansion
 
-set WD=%~d0%~p0
+pushd "%~dp0"
+set WD=%CD%
+popd
+
 if not defined TC_HOME (
   echo Please initialize the environment variable TC_HOME to the location of your extracted TerracottaDB kit
   pause
@@ -38,9 +42,9 @@ if not defined JAVA_HOME (
 set JAVA="%JAVA_HOME%\bin\java.exe"
 set JAVAC="%JAVA_HOME%\bin\javac.exe"
 
-set TC_CP=.
+set TC_CP="%WD%\src"
 rem Add the client jars in the classpath
-for /F "usebackq delims=" %%I in (`dir /b /s "%TC_HOME%\client\*.jar"`) do call set "TC_CP=%%TC_CP%%;%%I"
+for /F "usebackq delims=" %%I in ( `dir /b /s "%TC_HOME%\client\*.jar"` ) DO set TC_CP=!TC_CP!;%%I
 rem Add the logback configuration to the classpath
 set "TC_CP=%TC_CP%;%TC_HOME%\client\logging\impl"
 
@@ -48,7 +52,6 @@ echo Compiling the sample class..
 %JAVAC% -classpath "%TC_CP%" "%WD%\src\EhCache3MultiStripe.java"
 
 echo Starting the ehcache3 sample client, it's going to try to connect to your local servers..
-%JAVA% -cp "%TC_CP%;%WD%\src" -Xmx200m EhCache3MultiStripe
-pause
+%JAVA% -cp "%TC_CP%" -Xmx200m EhCache3MultiStripe
 
 endlocal

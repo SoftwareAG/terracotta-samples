@@ -33,7 +33,7 @@ JAVAC="${JAVA_HOME}/bin/javac"
 
 uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
 
-TC_CP=.
+TC_CP="$WD/src/"
 # Add the client jars in the classpath
 find "${TC_HOME}/client/" -type f -name "*.jar" > file
 while IFS= read -r line; do
@@ -48,4 +48,4 @@ echo "Compiling the sample class.."
 "$JAVAC" -classpath "$TC_CP" "${WD}/src/ClusteredStoreExample_Client1.java"
 
 echo "Starting the TC DB sample client, it's going to try to connect to your local server.."
-"$JAVA" -Xmx200m -classpath "$TC_CP:$WD/src/" ClusteredStoreExample_Client1
+"$JAVA" -Xmx200m -classpath "$TC_CP" ClusteredStoreExample_Client1
