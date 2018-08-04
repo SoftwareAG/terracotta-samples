@@ -33,13 +33,11 @@ JAVAC="${JAVA_HOME}/bin/javac"
 
 uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
 
-TC_CP="$WD/src/"
-# Add the client jars in the classpath
-find "${TC_HOME}/client/" -type f -name "*.jar" > file
+# Add the client jars to the classpath
+TC_CP="$WD/src"
 while IFS= read -r line; do
-	TC_CP=${TC_CP}:${line}
-done < file
-rm file
+  TC_CP="${TC_CP}:${line}"
+done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
 
 # Add the logback configuration to the classpath
 TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
