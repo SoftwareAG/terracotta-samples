@@ -42,7 +42,7 @@ if not defined JAVA_HOME (
 set JAVA="%JAVA_HOME%\bin\java.exe"
 set JAVAC="%JAVA_HOME%\bin\javac.exe"
 
-set TC_CP="%WD%\src"
+set TC_CP="%WD%\src;%WD%\resources"
 rem Add the client jars in the classpath
 for /F "usebackq delims=" %%I in ( `dir /b /s "%TC_HOME%\client\*.jar"` ) DO set TC_CP=!TC_CP!;%%I
 rem Add the logback configuration to the classpath
