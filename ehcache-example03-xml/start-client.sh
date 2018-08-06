@@ -33,7 +33,6 @@ JAVAC="${JAVA_HOME}/bin/javac"
 
 uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
 
-TC_CP="$WD/src/"
 # Add the client jars to the classpath
 TC_CP="$WD/src"
 while IFS= read -r line; do
