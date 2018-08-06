@@ -42,16 +42,16 @@ if not defined JAVA_HOME (
 set JAVA="%JAVA_HOME%\bin\java.exe"
 set JAVAC="%JAVA_HOME%\bin\javac.exe"
 
-set TC_CP="%WD%\src;%WD%\resources"
+set TC_CP="%WD%\src"
 rem Add the client jars in the classpath
 for /F "usebackq delims=" %%I in ( `dir /b /s "%TC_HOME%\client\*.jar"` ) DO set TC_CP=!TC_CP!;%%I
 rem Add the logback configuration to the classpath
 set "TC_CP=%TC_CP%;%TC_HOME%\client\logging\impl"
 
 echo Compiling the sample class..
-%JAVAC% -classpath "%TC_CP%" "%WD%\src\EhCache3ClusteredCache.java"
+%JAVAC% -classpath "%TC_CP%" "%WD%\src\StoreProgrammaticConfigExport.java"
 
-echo Starting the ehcache3 sample client, it's going to try to connect to your local server..
-%JAVA% -cp "%TC_CP%" -Xmx200m EhCache3ClusteredCache
+echo Starting the TC DB sample client, it's going to try to connect to your local server..
+%JAVA% -cp "%TC_CP%" -Xmx200m StoreProgrammaticConfigExport
 
 endlocal

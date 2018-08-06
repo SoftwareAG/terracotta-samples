@@ -34,7 +34,7 @@ JAVAC="${JAVA_HOME}/bin/javac"
 uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
 
 # Add the client jars to the classpath
-TC_CP="$WD/src:$WD/resources"
+TC_CP="$WD/src"
 while IFS= read -r line; do
   TC_CP="${TC_CP}:${line}"
 done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
@@ -43,7 +43,7 @@ done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
 TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
 
 echo "Compiling the sample class.."
-"$JAVAC" -classpath "$TC_CP" "${WD}/src/EhCache3ClusteredCache.java"
+"$JAVAC" -classpath "$TC_CP" "${WD}/src/StoreProgrammaticConfigExport.java"
 
-echo "Starting the ehcache3 sample client, it's going to try to connect to your local server.."
-"$JAVA" -Xmx200m -classpath "$TC_CP" EhCache3ClusteredCache
+echo "Starting the TC DB sample client, it's going to try to connect to your local server.."
+"$JAVA" -Xmx200m -classpath "$TC_CP" StoreProgrammaticConfigExport

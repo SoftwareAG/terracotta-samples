@@ -16,34 +16,18 @@
 
 #!/bin/bash
 
-WD=$(cd "$(dirname "$0")";pwd)
+WD=$(cd "$(dirname "$0")" && pwd)
 
 if [ -z "$TC_HOME" ]; then
   echo "Please initialize the environment variable TC_HOME to the location of your extracted TerracottaDB kit"
   exit 1
 fi
 
-if [ ! -d "${JAVA_HOME}" ]; then
-  echo "$0: the JAVA_HOME environment variable is not defined correctly"
+TC_SERVER_HOME="$TC_HOME"/server
+
+if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
+  echo "Modify the script to set TC_SERVER_HOME"
   exit 2
 fi
 
-JAVA="${JAVA_HOME}/bin/java"
-JAVAC="${JAVA_HOME}/bin/javac"
-
-uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
-
-# Add the client jars to the classpath
-TC_CP="$WD/src:$WD/resources"
-while IFS= read -r line; do
-  TC_CP="${TC_CP}:${line}"
-done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
-
-# Add the logback configuration to the classpath
-TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
-
-echo "Compiling the sample class.."
-"$JAVAC" -classpath "$TC_CP" "${WD}/src/EhCache3ClusteredCache.java"
-
-echo "Starting the ehcache3 sample client, it's going to try to connect to your local server.."
-"$JAVA" -Xmx200m -classpath "$TC_CP" EhCache3ClusteredCache
+"${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "${WD}/tc-config.xml"

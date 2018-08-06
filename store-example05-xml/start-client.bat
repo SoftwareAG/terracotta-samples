@@ -49,9 +49,9 @@ rem Add the logback configuration to the classpath
 set "TC_CP=%TC_CP%;%TC_HOME%\client\logging\impl"
 
 echo Compiling the sample class..
-%JAVAC% -classpath "%TC_CP%" "%WD%\src\EhCache3ClusteredCache.java"
+%JAVAC% -classpath "%TC_CP%" "%WD%\src\StoreClusteredBasicCRUD.java"
 
-echo Starting the ehcache3 sample client, it's going to try to connect to your local server..
-%JAVA% -cp "%TC_CP%" -Xmx200m EhCache3ClusteredCache
+echo Starting the TC DB sample client, it's going to try to connect to your local server..
+%JAVA% -cp "%TC_CP%" -Xmx200m  StoreClusteredBasicCRUD
 
 endlocal

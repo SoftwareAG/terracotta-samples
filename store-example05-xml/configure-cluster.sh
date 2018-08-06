@@ -23,27 +23,11 @@ if [ -z "$TC_HOME" ]; then
   exit 1
 fi
 
-if [ ! -d "${JAVA_HOME}" ]; then
-  echo "$0: the JAVA_HOME environment variable is not defined correctly"
+CLUSTER_TOOL_CONF="${TC_HOME}/tools/cluster-tool/conf"
+
+if [ ! -f "${CLUSTER_TOOL_CONF}/license.xml" ]; then
+  echo "License file not found. Please name it 'license.xml' and put it under '${CLUSTER_TOOL_CONF}'"
   exit 2
 fi
 
-JAVA="${JAVA_HOME}/bin/java"
-JAVAC="${JAVA_HOME}/bin/javac"
-
-uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
-
-# Add the client jars to the classpath
-TC_CP="$WD/src:$WD/resources"
-while IFS= read -r line; do
-  TC_CP="${TC_CP}:${line}"
-done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
-
-# Add the logback configuration to the classpath
-TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
-
-echo "Compiling the sample class.."
-"$JAVAC" -classpath "$TC_CP" "${WD}/src/EhCache3ClusteredCache.java"
-
-echo "Starting the ehcache3 sample client, it's going to try to connect to your local server.."
-"$JAVA" -Xmx200m -classpath "$TC_CP" EhCache3ClusteredCache
+"${TC_HOME}/tools/cluster-tool/bin/cluster-tool.sh" configure -n myCluster "${WD}/tc-config.xml"
