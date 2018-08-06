@@ -1,25 +1,37 @@
-import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.PersistentCacheManager;
 import org.ehcache.clustered.client.config.builders.ClusteredResourcePoolBuilder;
 import org.ehcache.clustered.client.config.builders.ClusteringServiceConfigurationBuilder;
+import org.ehcache.config.Configuration;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.EntryUnit;
 import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.management.registry.DefaultManagementRegistryConfiguration;
-import org.terracotta.connection.ConnectionException;
+import org.ehcache.xml.XmlConfiguration;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URI;
-import java.util.Random;
-import java.util.UUID;
 
-public class EhCache3MultiStripe {
-  private static final String CACHE_MANAGER_ALIAS = "clustered-cache-manager";
-  private static final String CACHE_ALIAS = "clustered-cache";
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+public class EhCache3ProgrammaticConfigExport {
+
   private static final String DEFAULT_TSA_PORT = "9410";
   private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
+  private static final String CACHE_MANAGER_ALIAS = "clustered-cache-manager-04";
+  private static final String CACHE_ALIAS = "clustered-cache-04";
   private static final String SERVER_RESOURCE = "primary-server-resource";
   private static final String SHARED_RESOURCE_POOL = "resource-pool-a";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
@@ -27,11 +39,11 @@ public class EhCache3MultiStripe {
 
   public static void main(String[] args) throws Exception {
     try (CacheManager cacheManager = createCacheManager()) {
-      startCacheOperations(cacheManager);
+      exportConfiguration(cacheManager);
     }
   }
 
-  private static CacheManager createCacheManager() throws ConnectionException {
+  private static CacheManager createCacheManager() {
     final URI uri = URI.create(SERVER_URI_STR + "/" + CACHE_MANAGER_ALIAS);
     final CacheManagerBuilder<PersistentCacheManager> clusteredCacheManagerBuilder = CacheManagerBuilder
         .newCacheManagerBuilder()
@@ -56,16 +68,25 @@ public class EhCache3MultiStripe {
     return clusteredCacheManagerBuilder.build(true);
   }
 
-  private static void startCacheOperations(CacheManager cacheManager) throws InterruptedException {
-    Cache<Long, String> cache = cacheManager.getCache(CACHE_ALIAS, Long.class, String.class);
-    Random random = new Random();
+  private static void exportConfiguration(CacheManager cacheManager) throws Exception {
+    Configuration runtimeConfiguration = cacheManager.getRuntimeConfiguration();
+    XmlConfiguration xmlConfiguration = new XmlConfiguration(runtimeConfiguration);
+    prettyPrintXML(xmlConfiguration.toString());
+  }
 
-    for (int i = 0; i < 10; i++) {
-      Long key = random.nextLong();
-      String value = UUID.randomUUID().toString();
+  private static void prettyPrintXML(String xmlConfiguration) throws Exception {
+    System.out.println("Exported programmatic configuration to XML:");
 
-      System.out.println("" + (i + 1) + ". Putting key : " + key + " with value : " + value);
-      cache.put(key, value);
-    }
+    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+        .newInstance();
+    DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+    Document document = docBuilder.parse(new InputSource(new StringReader(xmlConfiguration)));
+
+    Transformer transformer = TransformerFactory.newInstance().newTransformer();
+    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+    Writer prettyPrint = new StringWriter();
+    transformer.transform(new DOMSource(document), new StreamResult(prettyPrint));
+    System.out.print(prettyPrint.toString());
   }
 }

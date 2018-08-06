@@ -38,14 +38,11 @@ JAVAC="${JAVA_HOME}/bin/javac"
 
 uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
 
-TC_CP=.
-# Add the client jars in the classpath
-find "${TC_HOME}/client/" -type f -name "*.jar" > file
-find "${TC_TCTQL_HOME}/" -type f -name "*.jar" >> file
+TC_CP="$WD/src/"
+# Add the client jars to the classpath
 while IFS= read -r line; do
-	TC_CP=${TC_CP}:${line}
-done < file
-rm file
+  TC_CP="${TC_CP}:${line}"
+done < <( find "${TC_HOME}/client/" -type f -name '*.jar' ; find "${TC_TCTQL_HOME}/" -type f -name '*.jar' )
 
 # Add the logback configuration to the classpath
 TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
@@ -54,4 +51,4 @@ echo "Compiling the sample class.."
 "$JAVAC" -classpath "${TC_CP}" "${WD}/src/StoreTextualQuerying.java"
 
 echo "Starting the TC DB sample client, it's going to try to connect to your local server..."
-"$JAVA" -Xmx200m -classpath "$TC_CP:$WD/src/" StoreTextualQuerying
+"$JAVA" -Xmx200m -classpath "$TC_CP" StoreTextualQuerying
