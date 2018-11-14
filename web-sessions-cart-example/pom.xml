@@ -22,17 +22,55 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.terracotta</groupId>
+    <groupId>org.terracotta.websessions</groupId>
     <artifactId>cart</artifactId>
-    <version>1.0.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <dependencies>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
+    <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.terracottatech</groupId>
+            <artifactId>websessions-tomcat85</artifactId>
+            <systemPath>${env.TC_HOME}/client/web-sessions/web-sessions-${env.TC_VERSION}-tomcat85.jar</systemPath>
+            <version>${env.TC_VERSION}</version>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.terracottatech</groupId>
+            <artifactId>terracotta-common-client</artifactId>
+            <systemPath>${env.TC_HOME}/client/lib/terracotta-common-client-${env.TC_VERSION}.jar</systemPath>
+            <version>${env.TC_VERSION}</version>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.terracottatech</groupId>
+            <artifactId>terracotta-store-client</artifactId>
+            <systemPath>${env.TC_HOME}/client/store/terracotta-store-client-${env.TC_VERSION}.jar</systemPath>
+            <version>${env.TC_VERSION}</version>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Using slf4j-jdk14, web sessions will log to JUL, the logger for Tomcat -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.25</version>
             <scope>provided</scope>
         </dependency>
 
@@ -53,7 +91,101 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <webXml>${project.basedir}/src/main/webapps/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.7.0</version>
+                <configuration>
+                    <containerUrl>http://mirror.dsrg.utoronto.ca/apache/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.zip</containerUrl>
+                    <containerId>tomcat8x</containerId>
+                    <!--<containerUrl>http://repo1.maven.org/maven2/org/apache/tomcat/tomcat/7.0.68/tomcat-7.0.68.zip</containerUrl>-->
+                    <!--<containerId>tomcat7x</containerId>-->
+                    <container>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-api</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-jdk14</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.terracottatech</groupId>
+                                <artifactId>websessions-tomcat85</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.terracottatech</groupId>
+                                <artifactId>terracotta-common-client</artifactId>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.terracottatech</groupId>
+                                <artifactId>terracotta-store-client</artifactId>
+                            </dependency>
+                        </dependencies>
+                    </container>
+                    <configuration>
+                        <configfiles>
+                            <configfile>
+                                <file>src/main/tomcat-configuration/web-sessions.properties</file>
+                                <todir>conf/Catalina/localhost/</todir>
+                                <tofile>web-sessions.properties</tofile>
+                            </configfile>
+                            <configfile>
+                                <file>src/main/tomcat-configuration/context.xml</file>
+                                <todir>conf/Catalina/localhost/</todir>
+                                <tofile>cart.xml</tofile>
+                            </configfile>
+                        </configfiles>
+                    </configuration>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>8081</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <configuration>
+                            <configuration>
+                                <properties>
+                                    <cargo.servlet.port>8081</cargo.servlet.port>
+                                    <cargo.rmi.port>8243</cargo.rmi.port>
+                                    <cargo.tomcat.ajp.port>8043</cargo.tomcat.ajp.port>
+                                </properties>
+                                <home>${project.build.directory}/tomcat-8081</home>
+                            </configuration>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>8082</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <configuration>
+                            <configuration>
+                                <properties>
+                                    <cargo.servlet.port>8082</cargo.servlet.port>
+                                    <cargo.rmi.port>8244</cargo.rmi.port>
+                                    <cargo.tomcat.ajp.port>8044</cargo.tomcat.ajp.port>
+                                </properties>
+                                <home>${project.build.directory}/tomcat-8082</home>
+                            </configuration>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

@@ -32,7 +32,6 @@ final String contextPath=request.getContextPath();
 %>
 
 <%@ page import="java.util.Date" %>
-<%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.Random" %>
 <%
     int r = new Random().nextInt(100);
@@ -47,7 +46,7 @@ final String contextPath=request.getContextPath();
 %>
 
 
-<head><title>carts</title></head>
+<head><title>Web sessions cart example</title></head>
 <body bgcolor="white">
 
 
@@ -178,8 +177,8 @@ document.writeln(
    '<table style="font-size: 100%"><tr style="vertical-align: top"><td>' +
    '<table style="font-size: 100%">' +
    rowStart + "Current Server:" + rowMiddle + currentServer + rowEnd +
-   rowStart + 'Terracotta Sessions:' + rowMiddle +
-      (dsoEnabled ? 'On' : 'Off') + rowEnd +
+   // rowStart + 'Terracotta Sessions:' + rowMiddle +
+   //    (dsoEnabled ? 'On' : 'Off') + rowEnd +
    rowStart + 'Items in Cart:' + rowMiddle + cartSize + rowEnd +
 
   rowStart + 'Go to:' + rowMiddle + '<a href="http://' + location.hostname +
@@ -188,10 +187,12 @@ document.writeln(
    rowStart + 'Go to: ' + rowMiddle + '<a href="http://' + location.hostname +
       '/t"<b>Balancer </b></a>' +
 
-rowEnd + 
+rowEnd +
 
-   '</table></td><td style="padding-left: 15px">' +
-   getMsg() + '</td></tr></table></div>');
+    '</table></td></tr></table></div>');
+   //
+   // '</table></td><td style="padding-left: 15px">' +
+   // getMsg() + '</td></tr></table></div>');
 </script>
 
 <% if (sess == null) { %>
