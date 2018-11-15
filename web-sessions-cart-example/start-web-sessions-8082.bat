@@ -49,6 +49,6 @@ set JAVA="%JAVA_HOME%\bin\java.exe"
 set JAVAC="%JAVA_HOME%\bin\javac.exe"
 
 echo Starting build and servlet container on port 8082
-./mvnw.cmd verify cargo:run -P8082
+./mvnw.cmd verify cargo:run -Pcargo,8082
 
 endlocal

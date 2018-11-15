@@ -62,13 +62,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
     <profiles>
         <profile>
-            <id>cargo-dependencies</id>
-            <activation>
-                <property>
-                    <name>cargo</name>
-                    <value>true</value>
-                </property>
-            </activation>
+            <id>cargo</id>
             <build>
                 <plugins>
                     <plugin>

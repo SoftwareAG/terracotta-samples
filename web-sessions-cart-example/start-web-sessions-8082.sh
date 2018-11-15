@@ -36,4 +36,4 @@ fi
 uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
 
 echo "Starting build and servlet container on port 8082"
-./mvnw verify cargo:run -P8082
+./mvnw verify cargo:run -Pcargo,8082
