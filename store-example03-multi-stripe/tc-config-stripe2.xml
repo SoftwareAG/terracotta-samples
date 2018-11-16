@@ -41,4 +41,8 @@
       <tsa-port>9610</tsa-port>
     </server>
   </servers>
+
+  <failover-priority>
+    <availability/>
+  </failover-priority>
 </tc-config>
