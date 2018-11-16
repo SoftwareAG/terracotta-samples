@@ -40,4 +40,8 @@
       <logs>server-logs</logs>
     </server>
   </servers>
+
+  <failover-priority>
+    <availability/>
+  </failover-priority>
 </tc-config>
