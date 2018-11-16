@@ -32,9 +32,8 @@ final String contextPath=request.getContextPath();
 %>
 
 <%@ page import="java.util.Date" %>
-<%@ page import="java.util.Random" %>
+<%@ page import="java.net.InetAddress" %>
 <%
-    int r = new Random().nextInt(100);
     if (request.getParameter("key") != null) {
         request.getSession().setAttribute(String.valueOf(request.getParameter("key")), request.getParameter("val"));
     }
@@ -44,7 +43,6 @@ final String contextPath=request.getContextPath();
     HttpSession sess = request.getSession(false);
 
 %>
-
 
 <head><title>Web sessions cart example</title></head>
 <body bgcolor="white">
@@ -138,72 +136,58 @@ function submitRemove(form){
 </FONT>
 
 
+<hr style="margin-top: 10px"> 
+<div id="sessionsInfo" style="background:white; font-size: 85%; font-family: sans-serif; border: 3px solid gray; padding: 15px; margin: 50px 80px">
+    <table style="font-size: 100%">
+        <tr style="vertical-align: top"><td>
+        <table style="font-size: 100%">
 
 <!-- - - - - - - - - - - - - -->
 <!--  Start: Cluster Demo    -->
 <!--  Terracotta, Inc.       -->
 <!-- - - - - - - - - - - - - -->
 <script>
-dsoEnabled = <%= Boolean.getBoolean("tc.active") %>;
+hostname = "<%=  InetAddress.getLocalHost().getHostName()  %>";
 cartSize = <%= cart.getItems().length %>;
-server1 = "8081";
-server2 = "8082";
-currentServer = <%=request.getServerPort()%>;
-otherServer = currentServer == server1 ? server2 : server1;
-serverColor = currentServer == server1 ? "goldenrod" : "darkseagreen";
+isLocalhost8081On = true;
+isLocalhost8082On = true;
+isLoadBalancerOn = true;
+currentPort = <%=request.getServerPort()%>;
+localMode =  (currentPort == 8081 || currentPort == 8082) ? true : false;
+otherServer = currentPort == 8081 ? 8082 : 8081;
+serverColor = currentPort == 8081 ? "goldenrod" : "darkseagreen";
 msgNoDsoEmptyCart = 'This web application is currently running in regular non-clustered mode, and your cart is empty.&nbsp;  Use the "add" button to put an item in your cart.<br><br>If you just jumped over from the other server, your cart is empty because the session data is not being shared between servers.&nbsp;  Try running with Terracotta Sessions enabled.';
 msgNoDsoFullCart =  'This web application is currently running in regular non-clustered mode, and you have added an item to your cart.&nbsp;  Now click the link on the left to jump over to the other server.&nbsp;  Since the session data is not being shared across servers, your cart will be lost when you jump to the other server.';
 msgDsoEmptyCart =   'This web application is currently running clustered on Terracotta Sessions.&nbsp;  Your cart is empty.&nbsp;  Use the "add" button to put an item in your cart.&nbsp;  Terracotta Sessions makes the session data transparently available to the other server, so your cart and its contents will be maintained if you jump to another server.';
 msgDsoFullCart  =   'This web application is currently running clustered on Terracotta Sessions, and you have added an item to your cart.<br><br>You can click the link on the left to jump over to the other server.&nbsp;  Since the session data is being shared across servers, your cart will be preserved.<br><br>If you just jumped over from the other server, your cart has maintained its contents because Terracotta Sessions replicated the session data. To view the session data, connect to the cluster using the Developer Console, then click the <bold>Sessions</bold> button to open the <bold>Sessions</bold> panels under the <bold>My application</bold> node.';
-function getMsg() {
-   if (!dsoEnabled && cartSize==0)
-      return msgNoDsoEmptyCart;
-   else if (!dsoEnabled && cartSize>0)
-      return msgNoDsoFullCart;
-   else if (dsoEnabled && cartSize==0)
-      return msgDsoEmptyCart;
-   else
-      return msgDsoFullCart;
-   }
 
 rowStart =  "<tr><td style='text-align: right'><nobr>";
 rowMiddle = "</nobr></td><td><nobr><b>";
 rowEnd =    "</b></nobr></td></tr>";
-document.writeln(
-   '<hr style="margin-top: 10px">' +
-   '<div style="background: ' + serverColor + '; font-size: 85%; ' +
-      'font-family: sans-serif; border: 3px solid gray; ' +
-      'padding: 15px; margin: 50px 80px">' +
-   '<table style="font-size: 100%"><tr style="vertical-align: top"><td>' +
-   '<table style="font-size: 100%">' +
-   rowStart + "Current Server:" + rowMiddle + currentServer + rowEnd +
-   // rowStart + 'Terracotta Sessions:' + rowMiddle +
-   //    (dsoEnabled ? 'On' : 'Off') + rowEnd +
-   rowStart + 'Items in Cart:' + rowMiddle + cartSize + rowEnd +
 
-  rowStart + 'Go to:' + rowMiddle + '<a href="http://' + location.hostname +
-      ':' + otherServer + '<%=contextPath%>"><b>Server ' + otherServer + '</b></a>' + rowEnd +
+document.getElementById("sessionsInfo").style.backgroundColor = serverColor;
+document.writeln( rowStart + 'Items in Cart:' + rowMiddle + cartSize + rowEnd );
+if(localMode) {
+    document.writeln( rowStart + "Current Server:" + rowMiddle + currentPort + rowEnd);
+    document.writeln( rowStart + 'Go to:' + rowMiddle + '<a href="http://' + location.hostname + ':' + otherServer + '<%=contextPath%>"><b>Server ' + otherServer + '</b></a>' + rowEnd );
+} else {
+    document.writeln( rowStart + "Current Server:" + rowMiddle + hostname + rowEnd);
+    document.writeln( rowStart + 'Go to:' + rowMiddle + '<a href="' + window.location.href +'"><b>Reload page</b></a>' + rowEnd );
+}
 
-   rowStart + 'Go to: ' + rowMiddle + '<a href="http://' + location.hostname +
-      '/t"<b>Balancer </b></a>' +
+// document.writeln( rowStart + 'Go to: ' + rowMiddle + '<a href="http://' + location.hostname +'/t"<b>Balancer </b></a>');
 
-rowEnd +
-
-    '</table></td></tr></table></div>');
-   //
-   // '</table></td><td style="padding-left: 15px">' +
-   // getMsg() + '</td></tr></table></div>');
 </script>
+</table></td></tr></table></div>
 
 <% if (sess == null) { %>
 <p>NO HTTP SESSION !</p>
-<% } %>
-
-<% if (sess != null) { %>
+<% } else { %>
 <p>
     <div>Session ID: <%=sess.getId()%></div>
     <div>Session creation time: <%=new Date(sess.getCreationTime()).toString()%></div>
     <div>Session last access: <%=new Date(sess.getLastAccessedTime()).toString()%></div>
+    <div>Hostname: <%= InetAddress.getLocalHost().getHostName() %></div>
 </p>
 <% } %>
 
