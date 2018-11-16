@@ -172,7 +172,7 @@ if(localMode) {
     document.writeln( rowStart + 'Go to:' + rowMiddle + '<a href="http://' + location.hostname + ':' + otherServer + '<%=contextPath%>"><b>Server ' + otherServer + '</b></a>' + rowEnd );
 } else {
     document.writeln( rowStart + "Current Server:" + rowMiddle + hostname + rowEnd);
-    document.writeln( rowStart + 'Go to:' + rowMiddle + '<a href="' + window.location.href +'"><b>Reload page</b></a>' + rowEnd );
+    document.writeln( rowStart + 'Go to:' + rowMiddle + '<a href="/"><b>Reload page</b></a>' + rowEnd );
 }
 
 // document.writeln( rowStart + 'Go to: ' + rowMiddle + '<a href="http://' + location.hostname +'/t"<b>Balancer </b></a>');
