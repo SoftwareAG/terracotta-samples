@@ -121,7 +121,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <dependency>
                     <groupId>com.terracottatech</groupId>
                     <artifactId>websessions-tomcat85</artifactId>
-                    <systemPath>${env.TC_HOME}/client/websessions/websessions-${env.TC_VERSION}-tomcat85.jar</systemPath>
+                    <systemPath>${env.TC_HOME}/websessions/terracotta-websessions-${env.TC_VERSION}-tomcat85.jar</systemPath>
                     <version>${env.TC_VERSION}</version>
                     <scope>system</scope>
                 </dependency>
