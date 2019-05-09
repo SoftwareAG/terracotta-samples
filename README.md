@@ -1,19 +1,19 @@
-Terracotta DB samples
+Terracotta 10.x samples
 =====================
 
 What this document will help you accomplish:
 --------------------------------------------
 
-- Start a TerracottaDB cluster (one stripe or two stripes)
+- Start a Terracotta cluster (one stripe or two stripes)
 
-- Run sample Ehcache3 and Terracotta Store (TCStore) based applications, that connect to a Terracotta DB cluster.
+- Run sample Ehcache3 and Terracotta Store (TCStore) based applications, that connect to a Terracotta cluster.
 
 Prerequisites:
 --------------
 
-- Download the `Standalone installation package for Terracotta DB` from http://www.terracotta.org/downloads and unzip/untar it.
+- Download the `Standalone installation package for Terracotta 10.x` from http://www.terracotta.org/downloads and unzip/untar it.
 
-- Have a Terracotta DB license file ready (you can get a trial license file from : http://www.terracotta.org/downloads)
+- Have a Terracotta license file ready (you can get a trial license file from : http://www.terracotta.org/downloads)
 
 - Run the following commands in `bash shell` on Un*x, or in the Windows command prompt (look for .bat files)
 
