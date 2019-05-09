@@ -23,13 +23,13 @@ Set the environment
 - For Un*x, run in a bash shell:
 
    ```export JAVA_HOME="/location/to/valid/JDK8OrLater"```
-   ```export TC_HOME="/path/to/extracted/TerracottaDBkit"```
+   ```export TC_HOME="/path/to/extracted/TerracottaKit"```
 
 
 - On Windows, run in a command prompt:
 
    ```set JAVA_HOME="C:\....\java\jdk1.x.y_zz"```
-   ```set TC_HOME="C:\path\to\extracted\TerracottaDBkit"```
+   ```set TC_HOME="C:\path\to\extracted\TerracottaKit"```
 
 Make the license available to the cluster tool
 ----------------------------------------------
