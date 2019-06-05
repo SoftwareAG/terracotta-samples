@@ -12,7 +12,7 @@ Make sure you read and applied the instructions provided [at the top level](../.
 Prerequisites:
 --------------
 
-- Download the `Textual Query Language Extension APIs for Terracotta DB` from http://www.terracotta.org/downloads/ and unzip it / untar it.
+- Download the `Textual Query Language Extension APIs for Terracotta DB` from http://www.terracotta.org/downloads/terracotta/ and unzip it / untar it.
 
 - Run the following commands in `bash shell` on Un*x, or in the Windows command prompt (look for .bat files)
 
