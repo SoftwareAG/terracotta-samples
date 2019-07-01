@@ -51,7 +51,7 @@ set "TC_CP=%TC_CP%;%TC_HOME%\client\logging\impl"
 echo Compiling the sample class..
 %JAVAC% -classpath "%TC_CP%" "%WD%\src\Store3MultiStripe.java"
 
-echo Starting the TC DB sample client, it's going to try to connect to your local servers..
+echo Starting the TC sample client, it's going to try to connect to your local servers..
 %JAVA% -cp "%TC_CP%" -Xmx200m Store3MultiStripe
 
 endlocal

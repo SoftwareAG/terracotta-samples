@@ -51,7 +51,7 @@ set "TC_CP=%TC_CP%;%TC_HOME%\client\logging\impl"
 echo Compiling the sample class..
 %JAVAC% -classpath "%TC_CP%" "%WD%\src\ClusteredStoreExample_Client2.java"
 
-echo Starting the second TC DB sample client, it's going to try to connect to your local server..
+echo Starting the second TC sample client, it's going to try to connect to your local server..
 %JAVA% -cp "%TC_CP%" -Xmx200m  ClusteredStoreExample_Client2
 pause
 

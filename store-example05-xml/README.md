@@ -20,6 +20,6 @@ How to Run
 
         ./configure-cluster.(bat|sh)
 
-3. Connect an ehcache3 client to the server by running
+3. Connect a TC client to the server by running
 
         ./start-client.(bat|sh)

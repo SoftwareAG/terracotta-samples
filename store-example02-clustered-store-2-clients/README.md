@@ -20,7 +20,7 @@ How to Run
         
         ./configure-cluster.(bat|sh)
         
-3. Connect the first TC DB client to it by running 
+3. Connect the first TC client to it by running 
 
         ./start-client1.(bat|sh)
     

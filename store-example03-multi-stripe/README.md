@@ -20,6 +20,6 @@ How to Run
 
         ./configure-cluster.(bat|sh)
         
-3. Connect a TC DB client to the cluster by running 
+3. Connect a TC client to the cluster by running 
         
         ./start-client.(bat|sh)
