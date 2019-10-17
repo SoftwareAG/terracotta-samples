@@ -50,3 +50,7 @@ Run the sample applications
 
 Clone this repo, and then you just need to cd into each directory to discover the sample and how start it.
 
+___________________
+For more information you can Ask a Question in the [TECHcommunity Forums](http://tech.forums.softwareag.com).
+
+You can find additional information in the [Software AG TECHcommunity](http://techcommunity.softwareag.com).
