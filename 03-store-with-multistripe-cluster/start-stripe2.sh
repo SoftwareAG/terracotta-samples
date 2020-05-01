@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright © 2018 Software AG, Darmstadt, Germany and/or its licensors
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -14,8 +15,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-#!/bin/bash
-
 WD=$(cd "$(dirname "$0")" && pwd)
 
 if [ -z "$TC_HOME" ]; then
@@ -30,4 +29,4 @@ if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
   exit 2
 fi
 
-"${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "${WD}/tc-config-stripe2.xml"
+"${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "${WD}/cluster.properties" -s localhost -p 9510 -r repository/stripe1/node-2-1

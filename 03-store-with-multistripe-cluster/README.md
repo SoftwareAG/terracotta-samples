@@ -1,5 +1,7 @@
-Demonstrates basic usage of the Terracotta Store API with a distributed storage using multiple stripes.
-===========================================================================================
+About
+-----
+This sample illustrates the usage of the server script without any configuration files or explicit activation steps,
+and the usage of multiple TC Store API with a multi-stripe cluster.
 
 Have a look at the code
 -----------------------
@@ -18,7 +20,7 @@ How to Run
         
 2. Configure the cluster by running 
 
-        ./configure-cluster.(bat|sh)
+        ./activate-cluster.(bat|sh)
         
 3. Connect a TC client to the cluster by running 
         

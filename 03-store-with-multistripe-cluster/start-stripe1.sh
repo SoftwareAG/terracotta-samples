@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright © 2018 Software AG, Darmstadt, Germany and/or its licensors
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -14,20 +15,18 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-#!/bin/bash
-
-WD=$(cd "$(dirname "$0")";pwd)
+WD=$(cd "$(dirname "$0")" && pwd)
 
 if [ -z "$TC_HOME" ]; then
   echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
   exit 1
 fi
 
-CLUSTER_TOOL_CONF="${TC_HOME}/tools/cluster-tool/conf"
+TC_SERVER_HOME="$TC_HOME"/server
 
-if [ ! -f "${CLUSTER_TOOL_CONF}/license.xml" ]; then
-  echo "License file not found. Please name it 'license.xml' and put it under '${CLUSTER_TOOL_CONF}'"
+if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
+  echo "Modify the script to set TC_SERVER_HOME"
   exit 2
 fi
 
-"${TC_HOME}/tools/cluster-tool/bin/cluster-tool.sh" configure -n myCluster "${WD}/tc-config-stripe1.xml" "${WD}/tc-config-stripe2.xml"
+"${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "${WD}/cluster.properties" -s localhost -p 9410 -r repository/stripe1/node-1-1

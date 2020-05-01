@@ -16,14 +16,14 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
-public class Store3MultiStripe {
+public class StoreMultiStripe {
   private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
   private static final String DEFAULT_TSA_PORT = "9410";
   private static final String STORE_NAME = "mySampleStore03";
   private static final StringCellDefinition LAPTOP_ID_CELL = CellDefinition.defineString("laptopId");
   private static final BoolCellDefinition WORKS_FROM_HOME_CELL = CellDefinition.defineBool("worksFromHome");
-  private static final String SERVER_RESOURCE = "primary-server-resource";
-  private static final String DISK_RESOURCE = "data";
+  private static final String SERVER_RESOURCE = "main";
+  private static final String DISK_RESOURCE = "main";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
