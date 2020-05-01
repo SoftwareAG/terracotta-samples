@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright © 2018 Software AG, Darmstadt, Germany and/or its licensors
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -14,10 +15,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-#!/bin/bash
-
-WD=$(cd "$(dirname "$0")" && pwd)
-
 if [ -z "$TC_HOME" ]; then
   echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
   exit 1
@@ -30,4 +27,9 @@ if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
   exit 2
 fi
 
-"${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "${WD}/tc-config.xml"
+if [ ! -f "${TC_HOME}/license.xml" ]; then
+  echo "License file not found. Please name it 'license.xml' and put it under '${TC_HOME}'"
+  exit 2
+fi
+
+"${TC_SERVER_HOME}/bin/start-tc-server.sh" -s localhost -l "${TC_HOME}/license.xml" -N tc-cluster -y consistency
