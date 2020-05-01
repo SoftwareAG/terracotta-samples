@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright © 2018 Software AG, Darmstadt, Germany and/or its licensors
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -14,36 +15,21 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-#!/bin/bash
-
-WD=$(cd "$(dirname "$0")";pwd)
-
 if [ -z "$TC_HOME" ]; then
   echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
   exit 1
 fi
 
-if [ ! -d "${JAVA_HOME}" ]; then
-  echo "$0: the JAVA_HOME environment variable is not defined correctly"
+TC_SERVER_HOME="$TC_HOME"/server
+
+if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
+  echo "Modify the script to set TC_SERVER_HOME"
   exit 2
 fi
 
-JAVA="${JAVA_HOME}/bin/java"
-JAVAC="${JAVA_HOME}/bin/javac"
+if [ ! -f "${TC_HOME}/license.xml" ]; then
+  echo "License file not found. Please name it 'license.xml' and put it under '${TC_HOME}'"
+  exit 2
+fi
 
-uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
-
-# Add the client jars to the classpath
-TC_CP="$WD/src"
-while IFS= read -r line; do
-  TC_CP="${TC_CP}:${line}"
-done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
-
-# Add the logback configuration to the classpath
-TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
-
-echo "Compiling the sample class.."
-"$JAVAC" -classpath "$TC_CP" "${WD}/src/StoreClusteredBasicCRUD.java"
-
-echo "Starting the TC sample client, it's going to try to connect to your local server.."
-"$JAVA" -Xmx200m -classpath "$TC_CP" StoreClusteredBasicCRUD
+"${TC_SERVER_HOME}/bin/start-tc-server.sh" -s localhost -l "${TC_HOME}/license.xml" -N tc-cluster -y consistency

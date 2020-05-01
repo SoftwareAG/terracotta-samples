@@ -16,7 +16,7 @@ public class StoreClusteredBasicCRUD {
   private static final String STORE_NAME = "mySampleStore01";
   private static final IntCellDefinition FAVORITE_NUMBER_CELL = CellDefinition.defineInt("favoriteNumber");
   private static final StringCellDefinition NAME_CELL = CellDefinition.defineString("name");
-  private static final String SERVER_RESOURCE = "primary-server-resource";
+  private static final String SERVER_RESOURCE = "main";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
