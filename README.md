@@ -39,7 +39,7 @@ By default, the cluster tool expects the license to be under TC_HOME/tools/clust
 
 For example:
 
-   ```cp TerracottaDB102.xml TC_HOME/tools/cluster-tool/conf/license.xml```
+   ```cp Terrracotta102.xml TC_HOME/tools/cluster-tool/conf/license.xml```
 
 __Make sure you name the license file license.xml, and put it under ```TC_HOME/tools/cluster-tool/conf/```__
 

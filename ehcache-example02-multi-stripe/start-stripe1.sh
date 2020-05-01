@@ -19,7 +19,7 @@
 WD=$(cd "$(dirname "$0")" && pwd)
 
 if [ -z "$TC_HOME" ]; then
-  echo "Please initialize the environment variable TC_HOME to the location of your extracted TerracottaDB kit"
+  echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
   exit 1
 fi
 

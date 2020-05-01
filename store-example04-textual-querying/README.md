@@ -21,11 +21,11 @@ Set the environment
 
 - For Un*x, run in a bash shell :
 
-   ```export TC_TCTQL_HOME="/path/to/extracted/TerracottaDB_TCTQL_kit"```
+   ```export TC_TCTQL_HOME="/path/to/extracted/Terrracotta_TCTQL_kit"```
 
 - On Windows, run in a command prompt :
 
-   ```set TC_TCTQL_HOME="C:\path\to\extracted\TerracottaDB_TCTQL_kit"```
+   ```set TC_TCTQL_HOME="C:\path\to\extracted\Terrracotta_TCTQL_kit"```
 
 How to Run
 ----------
