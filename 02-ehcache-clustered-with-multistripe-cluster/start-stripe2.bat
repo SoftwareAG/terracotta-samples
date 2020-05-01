@@ -35,6 +35,7 @@ if not exist "%TC_SERVER_HOME%\bin\start-tc-server.bat" (
   pause
   exit /b 1
 )
-call "%TC_SERVER_HOME%\bin\start-tc-server.bat" "-f" "%WD%\tc-config-stripe2.xml"
+
+call "%TC_SERVER_HOME%\bin\start-tc-server.bat" "${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "%WD%\cluster.properties" -s localhost -p 9510 -r "repository\stripe1\node-2-1"
 
 endlocal

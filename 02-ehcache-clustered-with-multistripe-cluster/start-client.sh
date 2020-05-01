@@ -1,3 +1,4 @@
+#!/bin/bash
 # Copyright © 2018 Software AG, Darmstadt, Germany and/or its licensors
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -14,20 +15,34 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-#!/bin/bash
-
-WD=$(cd "$(dirname "$0")" && pwd)
+WD=$(cd "$(dirname "$0")";pwd)
 
 if [ -z "$TC_HOME" ]; then
   echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
   exit 1
 fi
 
-TC_SERVER_HOME="$TC_HOME"/server
-
-if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
-  echo "Modify the script to set TC_SERVER_HOME"
+if [ ! -d "${JAVA_HOME}" ]; then
+  echo "$0: the JAVA_HOME environment variable is not defined correctly"
   exit 2
 fi
 
-"${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "${WD}/tc-config-stripe1.xml"
+JAVA="${JAVA_HOME}/bin/java"
+JAVAC="${JAVA_HOME}/bin/javac"
+
+uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
+
+# Add the client jars to the classpath
+TC_CP="$WD/src"
+while IFS= read -r line; do
+  TC_CP="${TC_CP}:${line}"
+done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
+
+# Add the logback configuration to the classpath
+TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
+
+echo "Compiling the sample class.."
+"$JAVAC" -classpath "$TC_CP" "${WD}/src/EhCache3MultiStripe.java"
+
+echo "Starting the ehcache3 sample client, it's going to try to connect to your local servers.."
+"$JAVA" -Xmx200m -classpath "$TC_CP" EhCache3MultiStripe

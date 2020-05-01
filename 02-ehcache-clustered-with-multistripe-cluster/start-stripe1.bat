@@ -28,15 +28,14 @@ if not defined TC_HOME (
   exit /b 1
 )
 set TC_HOME=%TC_HOME:"=%
+set TC_SERVER_HOME=%TC_HOME%\server
 
-for /F "tokens=*" %%D in ( "%TC_HOME%\tools\cluster-tool\conf" ) DO set CLUSTER_TOOL_CONF=%%~fD
-
-if not exist "%CLUSTER_TOOL_CONF%\license.xml" (
-  echo License file not found. Please name it 'license.xml' and put it under '%CLUSTER_TOOL_CONF%'
+if not exist "%TC_SERVER_HOME%\bin\start-tc-server.bat" (
+  echo "Modify the script to set TC_SERVER_HOME"
   pause
   exit /b 1
 )
 
-call "%TC_HOME%\tools\cluster-tool\bin\cluster-tool.bat" configure -n myCluster "%WD%\tc-config-stripe1.xml" "%WD%\tc-config-stripe2.xml"
+call "%TC_SERVER_HOME%\bin\start-tc-server.bat" "${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "%WD%\cluster.properties" -s localhost -p 9410 -r "repository\stripe1\node-1-1"
 
 endlocal
