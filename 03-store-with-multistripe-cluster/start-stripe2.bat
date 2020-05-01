@@ -23,19 +23,12 @@ set WD=%CD%
 popd
 
 if not defined TC_HOME (
-  echo Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit
+  echo Please initialize the environment variable TC_HOME to the location of your extracted Terracotta kit
   pause
   exit /b 1
 )
 set TC_HOME=%TC_HOME:"=%
-set TC_SERVER_HOME=%TC_HOME%\server
 
-if not exist "%TC_SERVER_HOME%\bin\start-tc-server.bat" (
-  echo "Modify the script to set TC_SERVER_HOME"
-  pause
-  exit /b 1
-)
-
-call "%TC_SERVER_HOME%\bin\start-tc-server.bat" "${TC_SERVER_HOME}/bin/start-tc-server.sh" -f "%WD%\cluster.properties" -s localhost -p 9510 -r "repository\stripe1\node-2-1"
+call "%TC_HOME%\server\bin\start-tc-server.bat" -f "%WD%\cluster.properties" -s localhost -p 9510 -r "repository\stripe1\node-2-1"
 
 endlocal

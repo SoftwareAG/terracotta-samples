@@ -16,15 +16,8 @@
 #   limitations under the License.
 
 if [ -z "$TC_HOME" ]; then
-  echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
+  echo "Please initialize the environment variable TC_HOME to the location of your extracted Terracotta kit"
   exit 1
-fi
-
-TC_SERVER_HOME="$TC_HOME"/server
-
-if [ ! -f "$TC_SERVER_HOME/bin/start-tc-server.sh" ]; then
-  echo "Modify the script to set TC_SERVER_HOME"
-  exit 2
 fi
 
 if [ ! -f "${TC_HOME}/license.xml" ]; then
@@ -32,4 +25,4 @@ if [ ! -f "${TC_HOME}/license.xml" ]; then
   exit 2
 fi
 
-"${TC_SERVER_HOME}/bin/start-tc-server.sh" -s localhost -l "${TC_HOME}/license.xml" -N tc-cluster -y consistency
+"${TC_HOME}/server/bin/start-tc-server.sh" -s localhost -l "${TC_HOME}/license.xml" -N tc-cluster -y consistency

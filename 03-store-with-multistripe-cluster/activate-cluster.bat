@@ -23,13 +23,11 @@ set WD=%CD%
 popd
 
 if not defined TC_HOME (
-  echo Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit
+  echo Please initialize the environment variable TC_HOME to the location of your extracted Terracotta kit
   pause
   exit /b 1
 )
 set TC_HOME=%TC_HOME:"=%
-
-for /F "tokens=*" %%D in ( "%TC_HOME%\tools\cluster-tool\conf" ) DO set CLUSTER_TOOL_CONF=%%~fD
 
 if not exist "%TC_HOME%\license.xml" (
   echo License file not found. Please name it 'license.xml' and put it under '%TC_HOME%'
@@ -37,6 +35,6 @@ if not exist "%TC_HOME%\license.xml" (
   exit /b 1
 )
 
-call "%TC_HOME%\tools\config-tool\bin\config-tool.bat" activate -f "%WD%\cluster.properties" -n tc-cluster -l "${TC_HOME}\license.xml"
+call "%TC_HOME%\tools\config-tool\bin\config-tool.bat" activate -f "%WD%\cluster.properties" -n tc-cluster -l "%TC_HOME%\license.xml"
 
 endlocal

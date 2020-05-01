@@ -19,12 +19,12 @@
 WD=$(cd "$(dirname "$0")";pwd)
 
 if [ -z "$TC_HOME" ]; then
-  echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
+  echo "Please initialize the environment variable TC_HOME to the location of your extracted Terracotta kit"
   exit 1
 fi
 
 if [ -z "$TC_TCTQL_HOME" ]; then
-  echo "Please initialize the environment variable TC_TCTQL_HOME to the location of your extracted Terrracotta TCTQL kit"
+  echo "Please initialize the environment variable TC_TCTQL_HOME to the location of your extracted Terracotta TCTQL kit"
   exit 1
 fi
 

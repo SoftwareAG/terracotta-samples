@@ -39,7 +39,7 @@ Placing the license in the `TC_HOME` directory helps the sample server and confi
 
 For example:
 
-   ```cp Terrracotta107.xml TC_HOME/license.xml```
+   ```cp Terracotta107.xml TC_HOME/license.xml```
 
 __Make sure you name the license file `license.xml`, and put it under ```TC_HOME```__
 

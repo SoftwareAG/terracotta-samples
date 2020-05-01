@@ -19,7 +19,7 @@
 WD=$(cd "$(dirname "$0")";pwd)
 
 if [ -z "$TC_HOME" ]; then
-  echo "Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit"
+  echo "Please initialize the environment variable TC_HOME to the location of your extracted Terracotta kit"
   exit 1
 fi
 
@@ -45,5 +45,5 @@ TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
 echo "Compiling the sample class.."
 "$JAVAC" -classpath "$TC_CP" "${WD}/src/StoreClusteredBasicCRUD.java"
 
-echo "Starting the TC Store sample client, it's going to try to connect to your local server.."
+echo "Starting the sample client, it's going to try to connect to your local server.."
 "$JAVA" -Xmx200m -classpath "$TC_CP" StoreClusteredBasicCRUD

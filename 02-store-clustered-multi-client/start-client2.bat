@@ -23,7 +23,7 @@ set WD=%CD%
 popd
 
 if not defined TC_HOME (
-  echo Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit
+  echo Please initialize the environment variable TC_HOME to the location of your extracted Terracotta kit
   pause
   exit /b 1
 )
