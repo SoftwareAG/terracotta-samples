@@ -23,7 +23,7 @@ public class StoreProgrammaticConfigExport {
   private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
   private static final String DEFAULT_TSA_PORT = "9410";
   private static final String STORE_NAME = "mySampleStore06";
-  private static final String SERVER_RESOURCE = "primary-server-resource";
+  private static final String SERVER_RESOURCE = "main";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
