@@ -1,4 +1,5 @@
-# Copyright © 2018 Software AG, Darmstadt, Germany and/or its licensors
+#!/bin/bash
+# Copyright (c) 2020 Software AG, Darmstadt, Germany and/or its licensors
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -13,8 +14,6 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-
-#!/bin/bash
 
 WD=$(cd "$(dirname "$0")";pwd)
 

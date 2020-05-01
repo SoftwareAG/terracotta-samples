@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright © 2018 Software AG, Darmstadt, Germany and/or its licensors
+# Copyright (c) 2020 Software AG, Darmstadt, Germany and/or its licensors
 #
 # SPDX-License-Identifier: Apache-2.0
 #

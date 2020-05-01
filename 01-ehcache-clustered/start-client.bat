@@ -1,4 +1,4 @@
-@REM Copyright © 2013 - 2018 Software AG, Darmstadt, Germany and/or its licensors
+@REM Copyright (c) 2020 Software AG, Darmstadt, Germany and/or its licensors
 @REM
 @REM SPDX-License-Identifier: Apache-2.0
 @REM
