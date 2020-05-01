@@ -32,7 +32,7 @@ public class EhCache3ProgrammaticConfigExport {
   private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
   private static final String CACHE_MANAGER_ALIAS = "clustered-cache-manager-04";
   private static final String CACHE_ALIAS = "clustered-cache-04";
-  private static final String SERVER_RESOURCE = "primary-server-resource";
+  private static final String SERVER_RESOURCE = "main";
   private static final String SHARED_RESOURCE_POOL = "resource-pool-a";
   private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
   private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
@@ -75,7 +75,7 @@ public class EhCache3ProgrammaticConfigExport {
   }
 
   private static void prettyPrintXML(String xmlConfiguration) throws Exception {
-    System.out.println("Exported programmatic configuration to XML:");
+    System.out.println(System.lineSeparator() + "Exported programmatic configuration to XML:");
 
     DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
         .newInstance();
@@ -87,6 +87,6 @@ public class EhCache3ProgrammaticConfigExport {
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
     Writer prettyPrint = new StringWriter();
     transformer.transform(new DOMSource(document), new StreamResult(prettyPrint));
-    System.out.print(prettyPrint.toString());
+    System.out.print(prettyPrint.toString() + System.lineSeparator());
   }
 }
