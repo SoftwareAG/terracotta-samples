@@ -38,8 +38,8 @@ JAVAC="${JAVA_HOME}/bin/javac"
 
 uname | grep CYGWIN > /dev/null && TC_HOME=$(cygpath -w -p "${TC_HOME}")
 
-TC_CP="$WD/src/"
 # Add the client jars to the classpath
+TC_CP="$WD/src"
 while IFS= read -r line; do
   TC_CP="${TC_CP}:${line}"
 done < <( find "${TC_HOME}/client/" -type f -name '*.jar' ; find "${TC_TCTQL_HOME}/" -type f -name '*.jar' )
@@ -50,5 +50,5 @@ TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
 echo "Compiling the sample class.."
 "$JAVAC" -classpath "${TC_CP}" "${WD}/src/StoreTextualQuerying.java"
 
-echo "Starting the TC sample client, it's going to try to connect to your local server..."
+echo "Starting the TC Store sample client, it's going to try to connect to your local server.."
 "$JAVA" -Xmx200m -classpath "$TC_CP" StoreTextualQuerying

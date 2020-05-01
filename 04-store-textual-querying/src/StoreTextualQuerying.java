@@ -1,21 +1,3 @@
-/*
- * Copyright © 2013 - 2018 Software AG, Darmstadt, Germany and/or its licensors
- *
- * SPDX-License-Identifier: Apache-2.0
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import com.terracotta.store.tql.ResultStream;
 import com.terracotta.store.tql.TqlEnvironment;
 import com.terracottatech.store.*;
@@ -33,7 +15,7 @@ public class StoreTextualQuerying {
     private static final String TERRACOTTA_URI_ENV = "TERRACOTTA_SERVER_URL";
     private static final String DEFAULT_TSA_PORT = "9410";
     private static final String STORE_NAME = "mySampleStore04";
-    private static final String SERVER_RESOURCE = "primary-server-resource";
+    private static final String SERVER_RESOURCE = "main";
     private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
     private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
     private static final CellDefinition<String> FIRST_NAME = CellDefinition.defineString("FirstName");
