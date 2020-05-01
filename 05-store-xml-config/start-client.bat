@@ -15,8 +15,8 @@
 @REM   limitations under the License.
 
 @echo off
-@REM : EnableExtensions for usage of ~
-setlocal EnableExtensions
+@REM : EnableExtensions for usage of ~ ; EnableDelayedExpansion for usage of !!
+setlocal EnableExtensions EnableDelayedExpansion
 
 pushd "%~dp0"
 set WD=%CD%
@@ -29,14 +29,29 @@ if not defined TC_HOME (
 )
 set TC_HOME=%TC_HOME:"=%
 
-for /F "tokens=*" %%D in ( "%TC_HOME%\tools\cluster-tool\conf" ) DO set CLUSTER_TOOL_CONF=%%~fD
+if exist "%TC_HOME%\server\bin\setenv.bat" (
+  call "%TC_HOME%\server\bin\setenv.bat"
+)
 
-if not exist "%CLUSTER_TOOL_CONF%\license.xml" (
-  echo License file not found. Please name it 'license.xml' and put it under '%CLUSTER_TOOL_CONF%'
+if not defined JAVA_HOME (
+  echo Environment variable JAVA_HOME needs to be set
   pause
   exit /b 1
 )
 
-call "%TC_HOME%\tools\cluster-tool\bin\cluster-tool.bat" configure -n myCluster "%WD%\tc-config.xml"
+set JAVA="%JAVA_HOME%\bin\java.exe"
+set JAVAC="%JAVA_HOME%\bin\javac.exe"
+
+set TC_CP="%WD%\src;%WD%\resources"
+rem Add the client jars in the classpath
+for /F "usebackq delims=" %%I in ( `dir /b /s "%TC_HOME%\client\*.jar"` ) DO set TC_CP=!TC_CP!;%%I
+rem Add the logback configuration to the classpath
+set "TC_CP=%TC_CP%;%TC_HOME%\client\logging\impl"
+
+echo Compiling the sample class..
+%JAVAC% -classpath "%TC_CP%" "%WD%\src\StoreClusteredXML.java"
+
+echo Starting the TC sample client, it's going to try to connect to your local server..
+%JAVA% -cp "%TC_CP%" -Xmx200m  StoreClusteredXML
 
 endlocal

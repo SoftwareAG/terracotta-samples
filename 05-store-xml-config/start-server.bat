@@ -15,12 +15,8 @@
 @REM   limitations under the License.
 
 @echo off
-@REM : EnableExtensions for usage of ~ ; EnableDelayedExpansion for usage of !!
-setlocal EnableExtensions EnableDelayedExpansion
-
-pushd "%~dp0"
-set WD=%CD%
-popd
+@REM : EnableExtensions for usage of ~
+setlocal EnableExtensions
 
 if not defined TC_HOME (
   echo Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit
@@ -28,30 +24,20 @@ if not defined TC_HOME (
   exit /b 1
 )
 set TC_HOME=%TC_HOME:"=%
+set TC_SERVER_HOME=%TC_HOME%\server
 
-if exist "%TC_HOME%\server\bin\setenv.bat" (
-  call "%TC_HOME%\server\bin\setenv.bat"
-)
-
-if not defined JAVA_HOME (
-  echo Environment variable JAVA_HOME needs to be set
+if not exist "%TC_SERVER_HOME%\bin\start-tc-server.bat" (
+  echo "Modify the script to set TC_SERVER_HOME"
   pause
   exit /b 1
 )
 
-set JAVA="%JAVA_HOME%\bin\java.exe"
-set JAVAC="%JAVA_HOME%\bin\javac.exe"
+if not exist "%TC_HOME%\license.xml" (
+  echo License file not found. Please name it 'license.xml' and put it under '%TC_HOME%'
+  pause
+  exit /b 1
+)
 
-set TC_CP="%WD%\src;%WD%\resources"
-rem Add the client jars in the classpath
-for /F "usebackq delims=" %%I in ( `dir /b /s "%TC_HOME%\client\*.jar"` ) DO set TC_CP=!TC_CP!;%%I
-rem Add the logback configuration to the classpath
-set "TC_CP=%TC_CP%;%TC_HOME%\client\logging\impl"
-
-echo Compiling the sample class..
-%JAVAC% -classpath "%TC_CP%" "%WD%\src\StoreClusteredBasicCRUD.java"
-
-echo Starting the TC sample client, it's going to try to connect to your local server..
-%JAVA% -cp "%TC_CP%" -Xmx200m  StoreClusteredBasicCRUD
+call "%TC_SERVER_HOME%\bin\start-tc-server.bat" "-s" "localhost" "-l" "%TC_HOME%\license.xml" "-N" "tc-cluster" "-y" "consistency"
 
 endlocal

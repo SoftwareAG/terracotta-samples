@@ -43,7 +43,7 @@ done < <( find "${TC_HOME}/client" -type f -name '*.jar' )
 TC_CP=${TC_CP}:${TC_HOME}/client/logging/impl
 
 echo "Compiling the sample class.."
-"$JAVAC" -classpath "$TC_CP" "${WD}/src/StoreClusteredBasicCRUD.java"
+"$JAVAC" -classpath "$TC_CP" "${WD}/src/StoreClusteredXML.java"
 
 echo "Starting the TC sample client, it's going to try to connect to your local server.."
-"$JAVA" -Xmx200m -classpath "$TC_CP" StoreClusteredBasicCRUD
+"$JAVA" -Xmx200m -classpath "$TC_CP" StoreClusteredXML

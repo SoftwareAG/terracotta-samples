@@ -8,6 +8,6 @@
     <server host="localhost" port="9410"/>
   </cluster-connection>
   <dataset name="mySampleStore05" key-type="LONG">
-    <tcs:offheap-resource>primary-server-resource</tcs:offheap-resource>
+    <tcs:offheap-resource>main</tcs:offheap-resource>
   </dataset>
 </clustered>

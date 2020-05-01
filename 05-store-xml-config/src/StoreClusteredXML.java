@@ -12,13 +12,13 @@ import com.terracottatech.store.manager.XmlConfiguration;
 
 import java.net.URL;
 
-public class StoreClusteredBasicCRUD {
+public class StoreClusteredXML {
   private static final String STORE_NAME = "mySampleStore05";
   private static final IntCellDefinition FAVORITE_NUMBER_CELL = CellDefinition.defineInt("favoriteNumber");
   private static final StringCellDefinition NAME_CELL = CellDefinition.defineString("name");
 
   public static void main(String[] args) throws StoreException {
-    URL xmlConfigurationUrl = StoreClusteredBasicCRUD.class.getResource("/clustered.xml");
+    URL xmlConfigurationUrl = StoreClusteredXML.class.getResource("/clustered.xml");
 
     DatasetManagerConfiguration xmlConfiguration = XmlConfiguration.parseDatasetManagerConfig(xmlConfigurationUrl);
     try (DatasetManager datasetManager = DatasetManager.using(xmlConfiguration, ConfigurationMode.AUTO)) {
