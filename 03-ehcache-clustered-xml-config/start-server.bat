@@ -18,25 +18,26 @@
 @REM : EnableExtensions for usage of ~
 setlocal EnableExtensions
 
-pushd "%~dp0"
-set WD=%CD%
-popd
-
 if not defined TC_HOME (
   echo Please initialize the environment variable TC_HOME to the location of your extracted Terrracotta kit
   pause
   exit /b 1
 )
 set TC_HOME=%TC_HOME:"=%
+set TC_SERVER_HOME=%TC_HOME%\server
 
-for /F "tokens=*" %%D in ( "%TC_HOME%\tools\cluster-tool\conf" ) DO set CLUSTER_TOOL_CONF=%%~fD
-
-if not exist "%CLUSTER_TOOL_CONF%\license.xml" (
-  echo License file not found. Please name it 'license.xml' and put it under '%CLUSTER_TOOL_CONF%'
+if not exist "%TC_SERVER_HOME%\bin\start-tc-server.bat" (
+  echo "Modify the script to set TC_SERVER_HOME"
   pause
   exit /b 1
 )
 
-call "%TC_HOME%\tools\cluster-tool\bin\cluster-tool.bat" configure -n myCluster "%WD%\tc-config.xml"
+if not exist "%TC_HOME%\license.xml" (
+  echo License file not found. Please name it 'license.xml' and put it under '%TC_HOME%'
+  pause
+  exit /b 1
+)
+
+call "%TC_SERVER_HOME%\bin\start-tc-server.bat" "-s" "localhost" "-l" "%TC_HOME%\license.xml" "-N" "tc-cluster" "-y" "availability"
 
 endlocal

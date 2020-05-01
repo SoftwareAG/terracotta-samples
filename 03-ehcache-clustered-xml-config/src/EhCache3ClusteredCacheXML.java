@@ -6,7 +6,7 @@ import org.ehcache.xml.XmlConfiguration;
 import java.util.Random;
 import java.util.UUID;
 
-public class EhCache3ClusteredCache {
+public class EhCache3ClusteredCacheXML {
 
   private static final String CACHE_ALIAS = "clustered-cache-03";
 
@@ -17,8 +17,7 @@ public class EhCache3ClusteredCache {
   }
 
   private static CacheManager createCacheManager() {
-    XmlConfiguration xmlConfiguration =
-        new XmlConfiguration(EhCache3ClusteredCache.class.getResource("/clustered.xml"));
+    XmlConfiguration xmlConfiguration = new XmlConfiguration(EhCache3ClusteredCacheXML.class.getResource("/clustered.xml"));
     CacheManager cacheManager = CacheManagerBuilder.newCacheManager(xmlConfiguration);
     cacheManager.init();
     return cacheManager;
