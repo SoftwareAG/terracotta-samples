@@ -1,12 +1,16 @@
 Terracotta 10.7 samples
 =======================
+This repository contains code samples for Terracotta version 10.7 clients (Ehcache 3 and TCStore).
+
+**_NOTE:_**
+For samples corresponding to Terracotta releases 10.5 and earlier, please check `release/10.5` branch.
 
 What this document will help you accomplish:
 --------------------------------------------
 
 - Start a Terracotta cluster (one stripe or two stripes)
 
-- Run sample Ehcache3 and Terracotta Store (TCStore) based applications, that connect to a Terracotta cluster.
+- Run sample Ehcache 3 and Terracotta Store (TCStore) based applications, that connect to a Terracotta cluster.
 
 Prerequisites:
 --------------
