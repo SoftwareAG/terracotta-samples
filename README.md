@@ -1,5 +1,5 @@
-Terracotta 10.x samples
-=====================
+Terracotta 10.7 samples
+=======================
 
 What this document will help you accomplish:
 --------------------------------------------
@@ -31,19 +31,17 @@ Set the environment
    ```set JAVA_HOME="C:\....\java\jdk1.x.y_zz"```
    ```set TC_HOME="C:\path\to\extracted\TerracottaKit"```
 
-Make the license available to the cluster tool
-----------------------------------------------
+Make the license available to the server and config-tool
+-------------------------------------------------------
 
-The cluster tool is responsible for configuring your cluster (how many stripes in your cluster, propagating the license, etc.)
-By default, the cluster tool expects the license to be under TC_HOME/tools/cluster-tool/conf
+The config tool is responsible for activating your cluster (how many stripes in your cluster, propagating the license, etc.)
+Placing the license in the `TC_HOME` directory helps the sample server and config-tool scripts pick it up.
 
 For example:
 
-   ```cp TerracottaDB102.xml TC_HOME/tools/cluster-tool/conf/license.xml```
+   ```cp Terracotta107.xml TC_HOME/license.xml```
 
-__Make sure you name the license file license.xml, and put it under ```TC_HOME/tools/cluster-tool/conf/```__
-
-
+__Make sure you name the license file `license.xml`, and put it under ```TC_HOME```__
 
 Run the sample applications
 ---------------------------

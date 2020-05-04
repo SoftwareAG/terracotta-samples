@@ -1,7 +1,8 @@
 .DS_STORE
-server-data*/
-server-logs*/
-license.xml
+repository/
+logs/
+metadata/
+user-data/
 .idea/
 *.class
 *.iml
