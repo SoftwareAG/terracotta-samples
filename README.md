@@ -3,7 +3,7 @@ Terracotta 10.7 samples
 This repository contains code samples for Terracotta version 10.7 clients (Ehcache 3 and TCStore).
 
 **_NOTE:_**
-For samples corresponding to Terracotta releases 10.5 and earlier, please check `release/10.5` branch.
+For samples corresponding to Terracotta releases 10.5 and earlier, please check `release/10.5` branch. (https://github.com/SoftwareAG/terracotta-samples/tree/release/10.5)
 
 What this document will help you accomplish:
 --------------------------------------------
