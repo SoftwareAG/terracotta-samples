@@ -22,4 +22,4 @@ if [ -z "$TC_HOME" ]; then
   exit 1
 fi
 
-"${TC_HOME}/server/bin/start-tc-server.sh" -f "${WD}/cluster.properties" -s localhost -p 9510 -r repository/stripe1/node-2-1
+"${TC_HOME}/server/bin/start-tc-server.sh" -config-file "${WD}/cluster.properties" -hostname localhost -port 9510 -config-dir repository/stripe1/node-2-1

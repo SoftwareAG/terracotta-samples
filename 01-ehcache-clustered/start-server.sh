@@ -25,4 +25,4 @@ if [ ! -f "${TC_HOME}/license.xml" ]; then
   exit 1
 fi
 
-"${TC_HOME}/server/bin/start-tc-server.sh" -s localhost -l "${TC_HOME}/license.xml" -N tc-cluster -y availability
+"${TC_HOME}/server/bin/start-tc-server.sh" -hostname localhost -license-file "${TC_HOME}/license.xml" -cluster-name tc-cluster -failover-priority availability -auto-activate

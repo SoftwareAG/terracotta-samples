@@ -29,6 +29,6 @@ if not defined TC_HOME (
 )
 set TC_HOME=%TC_HOME:"=%
 
-call "%TC_HOME%\server\bin\start-tc-server.bat" -f "%WD%\cluster.properties" -s localhost -p 9410 -r "repository\stripe1\node-1-1"
+call "%TC_HOME%\server\bin\start-tc-server.bat" -config-file "%WD%\cluster.properties" -hostname localhost -port 9410 -config-dir "repository\stripe1\node-1-1"
 
 endlocal
