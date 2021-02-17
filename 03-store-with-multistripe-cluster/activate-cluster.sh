@@ -27,4 +27,4 @@ if [ ! -f "${TC_HOME}/license.xml" ]; then
   exit 2
 fi
 
-"${TC_HOME}/tools/config-tool/bin/config-tool.sh" activate -f "${WD}/cluster.properties" -n tc-cluster -l "${TC_HOME}/license.xml"
+"${TC_HOME}/tools/bin/config-tool.sh" activate -config-file "${WD}/cluster.properties" -cluster-name tc-cluster -license-file "${TC_HOME}/license.xml"

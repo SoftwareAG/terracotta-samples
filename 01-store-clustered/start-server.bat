@@ -31,6 +31,6 @@ if not exist "%TC_HOME%\license.xml" (
   exit /b 1
 )
 
-call "%TC_HOME%\server\bin\start-tc-server.bat" "-s" "localhost" "-l" "%TC_HOME%\license.xml" "-N" "tc-cluster" "-y" "consistency"
+call "%TC_HOME%\server\bin\start-tc-server.bat" "-hostname" "localhost" "-license-file" "%TC_HOME%\license.xml" "-cluster-name" "tc-cluster" "-failover-priority" "consistency" "-auto-activate"
 
 endlocal

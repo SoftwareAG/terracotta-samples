@@ -35,6 +35,6 @@ if not exist "%TC_HOME%\license.xml" (
   exit /b 1
 )
 
-call "%TC_HOME%\tools\config-tool\bin\config-tool.bat" activate -f "%WD%\cluster.properties" -n tc-cluster -l "%TC_HOME%\license.xml"
+call "%TC_HOME%\tools\bin\config-tool.bat" activate -config-file "%WD%\cluster.properties" -cluster-name tc-cluster -license-file "%TC_HOME%\license.xml"
 
 endlocal
