@@ -1,4 +1,7 @@
 import static com.terracottatech.store.Cell.cell;
+import static java.lang.System.out;
+import static java.util.stream.Collectors.toList;
+
 import com.terracottatech.store.CellSet;
 import com.terracottatech.store.ComplexData;
 import com.terracottatech.store.ComplexRecord;
@@ -9,12 +12,16 @@ import com.terracottatech.store.StoreException;
 import com.terracottatech.store.StoreList;
 import com.terracottatech.store.StoreMap;
 import com.terracottatech.store.Type;
+import com.terracottatech.store.TypedValue;
 import com.terracottatech.store.configuration.DatasetConfiguration;
 import com.terracottatech.store.definition.ComplexDataParseException;
 import com.terracottatech.store.definition.ComplexDataParser;
 import com.terracottatech.store.manager.DatasetManager;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 public class ComplexDataTypeSample {
@@ -23,6 +30,7 @@ public class ComplexDataTypeSample {
     private static final String DEFAULT_TSA_PORT = "9410";
     private static final String DEFAULT_SERVER_URI_STR = "terracotta://localhost:" + DEFAULT_TSA_PORT;
     private static final String DATASET_NAME = "mySampleDataset";
+    private static final String SHINOBI_DATASET_NAME = "myShinobiDataset";
     private static final String SERVER_RESOURCE = "main";
     private static final String SERVER_URI_STR = System.getenv(TERRACOTTA_URI_ENV) == null ? DEFAULT_SERVER_URI_STR : System.getenv(TERRACOTTA_URI_ENV);
 
@@ -35,6 +43,7 @@ public class ComplexDataTypeSample {
             // create and use a dataset
             DatasetConfiguration offheapResource = datasetManager.datasetConfiguration().offheap(SERVER_RESOURCE).build();
             datasetManager.newDataset(DATASET_NAME, Type.LONG, offheapResource);
+            datasetManager.newDataset(SHINOBI_DATASET_NAME, Type.STRING, offheapResource);
 
             try (Dataset<Long> rawDataset = datasetManager.getDataset(DATASET_NAME, Type.LONG)) {
 
@@ -292,6 +301,78 @@ public class ComplexDataTypeSample {
                 System.out.println("Number of Integers less than or equal to 5 retrieved from dataset are : " + myDataset.get(5L).get().asComplex().find(".intMap.list.[]").integers().lessThanOrEqual(5).size());
                 System.out.println("Number of Integers less than 5 retrieved from dataset are : " + myDataset.get(5L).get().asComplex().find(".intMap.list.[]").integers().lessThan(5).size());
                 System.out.println("Sum of Integer list retrieved from dataset is : " + myDataset.get(5L).get().asComplex().find(".intMap.list.[]").integers().sum());
+
+            }
+
+            try (Dataset<String> dataset = datasetManager.getDataset(SHINOBI_DATASET_NAME, Type.STRING)) {
+                DatasetWriterReader<String> access = dataset.writerReader();
+
+                InputStream is = ComplexDataTypeSample.class.getResourceAsStream("/resources/shinobi.json");
+                ComplexDataParser parser = ComplexData.parser(new InputStreamReader(is));
+                StoreMap p = parser.nextMap();
+                StoreList allShinobi = (StoreList) p.get("shinobi").value();
+
+                for (TypedValue<?> shinobi : allShinobi) {
+                    Optional<StoreMap> m = shinobi.ifMap();
+                    if (m.isPresent()) {
+                        StoreMap map = m.get().mutableCopy();
+
+                        TypedValue<?> noOfJutsu = map.get("no_of_jutsu_can_perform");
+                        if (noOfJutsu != null) {
+                            map.put("no_of_jutsu_can_perform", TypedValue.typedValue(((Number) noOfJutsu.value()).intValue()));
+                        }
+                        access.add(map.get("name").ifString().get(), map.asCellSet());
+                    }
+                }
+
+                Record<String> record = ComplexRecord.mutableRecord("rec", StoreMap.newMap().with("map", p)).toRecord();
+
+                out.print("\nTotal number of shinobi are : "+ record.asComplex().find(".map.shinobi.[]").stream().count());
+                access.records().limit(1).forEach(rec -> out.println("\n"+rec.asComplex()));
+
+                // Lightning type Shinobi
+                List<String> lightning = access.records().filter(Record.find(".type.[]")
+                                .strings().contains("Lightning"))
+                        .map(Record::getKey).collect(toList());
+
+                // Shinobi who are susceptible to Lightning
+                List<String> hateLightning = access.records().filter(Record.find(".weaknesses.[]").strings()
+                                .contains("Lightning"))
+                        .map(Record::getKey).collect(toList());
+
+                // Shinobi who are strong against Earth style
+                List<String> strongAgainstEarthStyle = access.records().filter(Record.find(".strength.[]")
+                                .strings().contains("Earth"))
+                        .map(Record::getKey).collect(toList());
+
+                out.println("\nLightening type Shinobis are : " + lightning);
+                out.println("Shinobi who are susceptible to Lightening are : "+hateLightning);
+                out.println("Shinobi who are strong against Earth are : "+strongAgainstEarthStyle);
+
+                // Find function using Record
+                out.println("\nNo. of jutsu Naruto can perform : "+record.asComplex().find(".map.shinobi.[].no_of_jutsu_can_perform").get(0).get().value());
+                out.println("No. of jutsu Sasuke can perform : "+record.asComplex().find(".map.shinobi.[].no_of_jutsu_can_perform").get(1).get().value());
+                out.println("Are there any shinobi ranked Genin ? "+record.asComplex().find(".map.shinobi.[].shinobi_rank").strings().stream().anyMatch(l -> l.toLowerCase().equals("genin")));
+
+                // Find function using Dataset
+                out.println("\nNo. of jutsu Naruto can perform : "+access.get("Naruto").get().asComplex().find("no_of_jutsu_can_perform").get(0).get().value());
+                out.println("No. of jutsu Sasuke can perform : "+access.get("Sasuke").get().asComplex().find("no_of_jutsu_can_perform").get(0).get().value());
+
+                out.println("\nShinobi with multiple previous evolutions:");
+                access.records().filter(Record.find(".prev_evolution.[]").size().isGreaterThanOrEqualTo(1))
+                        .map(Record::asComplex)
+                        .forEach(r -> {
+                            out.println(r.getKey());
+                            r.find(".prev_evolution.[].name").forEach(evo -> out.println("  became --> " + evo.value()));
+                        });
+
+                out.println("\nShinobi with multiple next evolutions:");
+                access.records().filter(Record.find(".next_evolution.[]").size().isGreaterThanOrEqualTo(1))
+                        .map(Record::asComplex)
+                        .forEach(r -> {
+                            out.println(r.getKey());
+                            r.find(".next_evolution.[].name").forEach(evo -> out.println("  becomes --> " + evo.value()));
+                        });
 
             }
         }
