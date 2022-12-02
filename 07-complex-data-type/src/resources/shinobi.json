@@ -21,11 +21,11 @@
       "Yin Release"
     ],
     "shinobi_rank": "Genin",
-    "prev_evolution": [{
+    "prev_shinobi_rank": [{
       "num": "001",
       "name": "Academy Student"
     }],
-    "next_evolution": [{
+    "next_shinobi_rank": [{
       "num": "003",
       "name": "Chunin"
     }, {
@@ -51,14 +51,14 @@
       "Wind"
     ],
     "shinobi_rank": "Chunin",
-    "prev_evolution": [{
+    "prev_shinobi_rank": [{
       "num": "001",
       "name": "Academy Student"
     },{
       "num": "002",
       "name": "Genin"
     }],
-    "next_evolution": [{
+    "next_shinobi_rank": [{
       "num": "004",
       "name": "Jonin"
     },{
@@ -80,7 +80,7 @@
       "Lightning"
     ],
     "shinobi_rank": "Kage",
-    "prev_evolution": [{
+    "prev_shinobi_rank": [{
       "num": "001",
       "name": "Academy Student"
     },{
@@ -108,7 +108,7 @@
       "Wind"
     ],
     "shinobi_rank": "Jonin",
-    "prev_evolution": [{
+    "prev_shinobi_rank": [{
       "num": "001",
       "name": "Academy Student"
     },{
@@ -118,7 +118,7 @@
       "num": "003",
       "name": "Chunin"
     }],
-    "next_evolution": [{
+    "next_shinobi_rank": [{
       "num": "005",
       "name": "Kage"
     }]
@@ -137,7 +137,7 @@
       "Earth"
     ],
     "shinobi_rank": "Kage",
-    "prev_evolution": [{
+    "prev_shinobi_rank": [{
       "num": "001",
       "name": "Academy Student"
     },{
@@ -165,7 +165,7 @@
       "Fire"
     ],
     "shinobi_rank": "Academy Student",
-    "next_evolution": [{
+    "next_shinobi_rank": [{
       "num": "002",
       "name": "Genin"
     },{
