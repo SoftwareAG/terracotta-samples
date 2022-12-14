@@ -1,0 +1,182 @@
+{
+  "shinobi": [{
+    "id": 1,
+    "num": "001",
+    "name": "Naruto",
+    "type": [
+      "Wind",
+      "Earth",
+      "Lightning",
+      "Fire"
+    ],
+    "no_of_jutsu_can_perform": 76,
+    "strength": [
+      "Wind",
+      "Earth",
+      "Lightning",
+      "Fire",
+      "Water"
+    ],
+    "weaknesses": [
+      "Yin Release"
+    ],
+    "shinobi_rank": "Genin",
+    "prev_shinobi_rank": [{
+      "num": "001",
+      "name": "Academy Student"
+    }],
+    "next_shinobi_rank": [{
+      "num": "003",
+      "name": "Chunin"
+    }, {
+      "num": "004",
+      "name": "Jonin"
+    }, {
+      "num": "005",
+      "name": "Kage"
+    }]
+  }, {
+    "id": 2,
+    "num": "002",
+    "name": "Sasuke",
+    "type": [
+      "Lightning",
+      "Fire"
+    ],
+    "no_of_jutsu_can_perform": 43,
+    "strength": [
+      "Earth"
+    ],
+    "weaknesses": [
+      "Wind"
+    ],
+    "shinobi_rank": "Chunin",
+    "prev_shinobi_rank": [{
+      "num": "001",
+      "name": "Academy Student"
+    },{
+      "num": "002",
+      "name": "Genin"
+    }],
+    "next_shinobi_rank": [{
+      "num": "004",
+      "name": "Jonin"
+    },{
+      "num": "005",
+      "name": "Kage"
+    }]
+  }, {
+    "id": 3,
+    "num": "003",
+    "name": "Onoki",
+    "type": [
+      "Earth"
+    ],
+    "no_of_jutsu_can_perform": 26,
+    "strength": [
+      "Water"
+    ],
+    "weaknesses": [
+      "Lightning"
+    ],
+    "shinobi_rank": "Kage",
+    "prev_shinobi_rank": [{
+      "num": "001",
+      "name": "Academy Student"
+    },{
+      "num": "002",
+      "name": "Genin"
+    },{
+      "num": "003",
+      "name": "Chunin"
+    }, {
+      "num": "004",
+      "name": "Jonin"
+    }]
+  }, {
+    "id": 4,
+    "num": "004",
+    "name": "Kakashi",
+    "type": [
+      "Lightning"
+    ],
+    "no_of_jutsu_can_perform": 55,
+    "strength": [
+      "Earth"
+    ],
+    "weaknesses": [
+      "Wind"
+    ],
+    "shinobi_rank": "Jonin",
+    "prev_shinobi_rank": [{
+      "num": "001",
+      "name": "Academy Student"
+    },{
+      "num": "002",
+      "name": "Genin"
+    },{
+      "num": "003",
+      "name": "Chunin"
+    }],
+    "next_shinobi_rank": [{
+      "num": "005",
+      "name": "Kage"
+    }]
+  }, {
+    "id": 5,
+    "num": "005",
+    "name": "Tobirama",
+    "type": [
+      "Water"
+    ],
+    "no_of_jutsu_can_perform": 38,
+    "strength": [
+      "Fire"
+    ],
+    "weaknesses": [
+      "Earth"
+    ],
+    "shinobi_rank": "Kage",
+    "prev_shinobi_rank": [{
+      "num": "001",
+      "name": "Academy Student"
+    },{
+      "num": "002",
+      "name": "Genin"
+    },{
+      "num": "003",
+      "name": "Chunin"
+    }, {
+      "num": "004",
+      "name": "Jonin"
+    }]
+  },{
+    "id": 6,
+    "num": "006",
+    "name": "Konnohamaru",
+    "type": [
+      "Wind"
+    ],
+    "no_of_jutsu_can_perform": 15,
+    "strength": [
+      "Lightning"
+    ],
+    "weaknesses": [
+      "Fire"
+    ],
+    "shinobi_rank": "Academy Student",
+    "next_shinobi_rank": [{
+      "num": "002",
+      "name": "Genin"
+    },{
+      "num": "003",
+      "name": "Chunin"
+    }, {
+      "num": "004",
+      "name": "Jonin"
+    }, {
+      "num": "005",
+      "name": "Kage"
+    }]
+  }]
+}
