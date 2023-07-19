@@ -1,7 +1,4 @@
 .DS_STORE
-repository/
-logs/
-metadata/
 user-data/
 .idea/
 *.class
