@@ -1,5 +1,5 @@
-Terracotta 10.7/10.11 samples
-=======================
+Terracotta 10.7/10.11/10.15 samples
+===================================
 This repository contains code samples for Terracotta version 10.7 clients (Ehcache 3 and TCStore).
 
 **_NOTE:_**
